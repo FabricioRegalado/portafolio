@@ -92,7 +92,7 @@ const Hero = () => {
       >
         <div className="bg-yellow-400 absolute inset-0 -z-10 rounded-lg"></div>
         <img
-          src="/images/hero-image.jpg"
+          src="portafolio/public/images/hero-image.jpg"
           alt="Hero"
           className="w-full h-[300px] md:h-[500px] object-cover"
         />
