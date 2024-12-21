@@ -28,7 +28,11 @@ const projects = [
       { name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
       { name: "Bootstrap", icon: <FaBootstrap className="text-purple-500" /> },
     ],
-    images: ["/images/san_camilo0.png", "/images/san_camilo1.png", "/images/san_camilo2.png"],
+    images: [
+      `${process.env.PUBLIC_URL}/images/san_camilo0.png`,
+      `${process.env.PUBLIC_URL}/images/san_camilo1.png`,
+      `${process.env.PUBLIC_URL}/images/san_camilo2.png`,
+    ],
   },
   {
     title: "Sistema de Pedidos",
@@ -40,7 +44,11 @@ const projects = [
       { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
       { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
     ],
-    images: ["/images/pd0.png", "/images/pd1.png", "/images/pd2.png"],
+    images: [
+      `${process.env.PUBLIC_URL}/images/pd0.png`,
+      `${process.env.PUBLIC_URL}/images/pd1.png`,
+      `${process.env.PUBLIC_URL}/images/pd2.png`,
+    ],
   },
   {
     title: "SPA - BE FIT SUPPLEMENTS",
@@ -52,9 +60,13 @@ const projects = [
       { name: "Bootstrap", icon: <FaBootstrap className="text-purple-500" /> },
       { name: "WhatsApp", icon: <FaWhatsapp className="text-green-500" /> },
     ],
-    images: ["/images/beFitS0.png", "/images/beFitS1.png"],
+    images: [
+      `${process.env.PUBLIC_URL}/images/beFitS0.png`,
+      `${process.env.PUBLIC_URL}/images/beFitS1.png`,
+    ],
   },
 ];
+
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);

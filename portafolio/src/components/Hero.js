@@ -43,7 +43,7 @@ const Hero = () => {
             Contáctame
           </motion.a>
           <motion.a
-            href="/cv.pdf"
+            href="./cv.pdf"
             download
             whileHover={{ scale: 1.05, y: -5 }}
             className="border border-black px-8 py-3 rounded-lg font-medium text-black bg-white hover:bg-gray-200 transition-all duration-300"
@@ -92,7 +92,7 @@ const Hero = () => {
       >
         <div className="bg-yellow-400 absolute inset-0 -z-10 rounded-lg"></div>
         <img
-          src="portafolio/public/images/hero-image.jpg"
+          src={`${process.env.PUBLIC_URL}/images/hero-image.jpg`}
           alt="Hero"
           className="w-full h-[300px] md:h-[500px] object-cover"
         />
