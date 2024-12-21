@@ -78,7 +78,7 @@ const Footer = () => {
             Contáctame
           </motion.a>
           <motion.a
-            href="/cv.pdf"
+            href="./cv.pdf"
             download
             whileHover={{ scale: 1.05, y: -5 }}
             className="flex items-center border border-black text-black bg-white px-6 py-3 rounded-lg hover:bg-gray-200 transition-all duration-300"
