@@ -65,17 +65,38 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/beFitS1.png`,
     ],
   },
+  {
+    title: "MONCHIES BURGERS App",
+    description:
+      "Aplicación de pedidos en línea para MONCHIES BURGERS, que permite a los clientes personalizar sus órdenes, explorar el menú interactivo y realizar pedidos vía WhatsApp.",
+    technologies: [
+      { name: "React", icon: <FaReact className="text-blue-500" /> },
+      { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-blue-400" /> },
+      { name: "WhatsApp", icon: <FaWhatsapp className="text-green-500" /> },
+    ],
+    images: [
+      `${process.env.PUBLIC_URL}/images/burg0.png`,
+      `${process.env.PUBLIC_URL}/images/burg1.png`,
+      `${process.env.PUBLIC_URL}/images/burg3.png`,
+      `${process.env.PUBLIC_URL}/images/burg4.png`,
+    ],
+  },
 ];
-
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
+  // Estilo común para todas las cards (efecto glass con tono amarillito)
+  const yellowCardStyle = {
+    backgroundColor: "rgba(255,249,230,0.8)", // efecto glass similar al tema light
+    border: "1px solid rgba(241,196,15,0.5)",  // borde con tonalidad amarilla
+    borderRadius: "1rem",
+    backdropFilter: "blur(10px)",
+  };
+
   return (
-    <section
-      id="proyectos" // ID para asegurar el desplazamiento correcto
-      className="py-16 bg-gray-100 px-6 scroll-mt-16"
-    >
+    <section id="proyectos" className="py-16 bg-gray-100 px-6 scroll-mt-16">
       <div className="container mx-auto">
         {/* Encabezado */}
         <motion.h2
@@ -102,12 +123,13 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="rounded-lg bg-white shadow-md cursor-pointer hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="rounded-lg shadow-md cursor-pointer hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
               onClick={() => setSelectedProject(project)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
+              style={yellowCardStyle}
             >
               <img
                 src={project.images[0]}
@@ -179,10 +201,7 @@ const Projects = () => {
                 </h4>
                 <div className="flex justify-center gap-4 text-3xl">
                   {selectedProject.technologies.map((tech, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center"
-                    >
+                    <div key={index} className="flex flex-col items-center">
                       {tech.icon}
                       <span className="text-sm text-gray-600 mt-2">
                         {tech.name}
