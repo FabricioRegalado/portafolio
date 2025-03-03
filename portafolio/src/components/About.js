@@ -8,66 +8,71 @@ import {
   FaJava,
   FaJsSquare,
   FaCogs,
-  FaDatabase,
   FaLaptopCode,
 } from "react-icons/fa";
 import { SiDart, SiFlutter, SiMysql } from "react-icons/si";
 
-// Datos para habilidades
+// Datos para habilidades (simplificados)
 const backendSkills = [
-  { name: "C#", level: "85%", icon: <FaCogs className="text-purple-600" /> },
-  { name: "Java", level: "85%", icon: <FaJava className="text-red-500" /> },
-  { name: "SQL", level: "80%", icon: <SiMysql className="text-blue-500" /> },
+  { name: "C#", level: "85%", icon: <FaCogs className="text-yellow-500" /> },
+  { name: "Java", level: "85%", icon: <FaJava className="text-yellow-500" /> },
+  { name: "SQL", level: "80%", icon: <SiMysql className="text-yellow-500" /> },
   { name: "Python", level: "70%", icon: <FaPython className="text-yellow-500" /> },
-  { name: "JavaScript", level: "70%", icon: <FaJsSquare className="text-yellow-400" /> },
-  { name: "Dart", level: "65%", icon: <SiDart className="text-blue-400" /> },
+  { name: "JavaScript", level: "70%", icon: <FaJsSquare className="text-yellow-500" /> },
+  { name: "Dart", level: "65%", icon: <SiDart className="text-yellow-500" /> },
 ];
 
 const webSkills = [
-  { name: "HTML", level: "100%", icon: <FaHtml5 className="text-orange-500" /> },
-  { name: "CSS", level: "85%", icon: <FaCss3Alt className="text-blue-500" /> },
-  { name: "Flutter", level: "50%", icon: <SiFlutter className="text-blue-400" /> },
-  { name: "React", level: "50%", icon: <FaReact className="text-blue-500" /> },
+  { name: "HTML", level: "100%", icon: <FaHtml5 className="text-yellow-500" /> },
+  { name: "CSS", level: "85%", icon: <FaCss3Alt className="text-yellow-500" /> },
+  { name: "Flutter", level: "50%", icon: <SiFlutter className="text-yellow-500" /> },
+  { name: "React", level: "50%", icon: <FaReact className="text-yellow-500" /> },
 ];
 
-// Componente para renderizar una categoría de habilidades
+// Barra de progreso animada
+const ProgressBar = ({ level }) => (
+  <div className="w-32 h-2 bg-gray-200 rounded-full mt-1 overflow-hidden">
+    <motion.div
+      className="h-full bg-yellow-500 rounded-full"
+      initial={{ width: 0 }}
+      animate={{ width: level }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+    />
+  </div>
+);
+
+// Tarjeta de skill refinada y llamativa
+const SkillCard = ({ skill }) => {
+  return (
+    <motion.div
+      className="relative bg-gradient-to-br from-white to-yellow-50 rounded-lg shadow-sm p-4 flex items-center space-x-4 border-2 border-transparent transition-all hover:shadow-lg hover:border-yellow-400"
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="text-4xl">
+        <motion.div whileHover={{ rotate: 15 }} transition={{ duration: 0.3 }}>
+          {skill.icon}
+        </motion.div>
+      </div>
+      <div className="flex flex-col">
+        <h4 className="text-gray-800 font-semibold">{skill.name}</h4>
+        <ProgressBar level={skill.level} />
+      </div>
+    </motion.div>
+  );
+};
+
+// Componente para renderizar cada categoría de habilidades
 const SkillsCategory = ({ title, icon, subtitle, skills }) => {
   return (
     <div className="mb-16">
       <h3 className="text-2xl font-semibold text-gray-800 flex items-center mb-2">
         {icon} {title}
       </h3>
-      <p className="text-gray-600 mb-4">{subtitle}</p>
+      <p className="text-gray-600 mb-6">{subtitle}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {skills.map((skill, index) => (
-          <motion.div
-            key={index}
-            className="p-4 rounded-lg bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-          >
-            {/* Icono con fondo circular */}
-            <div className="flex items-center justify-center text-5xl mb-2">
-              <div className="bg-gray-100 p-3 rounded-full">{skill.icon}</div>
-            </div>
-            {/* Nombre */}
-            <h4 className="text-lg font-semibold text-center text-gray-700 mb-2">
-              {skill.name}
-            </h4>
-            {/* Barra de progreso */}
-            <div className="w-full bg-gray-200 rounded-full h-3 relative overflow-hidden">
-              <motion.div
-                className="h-3 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600"
-                initial={{ width: 0 }}
-                whileInView={{ width: skill.level }}
-                transition={{ duration: 1.2 }}
-              />
-            </div>
-            {/* Porcentaje */}
-            <p className="text-gray-600 mt-2 text-center">{skill.level}</p>
-          </motion.div>
+        {skills.map((skill, i) => (
+          <SkillCard key={i} skill={skill} />
         ))}
       </div>
     </div>
@@ -76,12 +81,9 @@ const SkillsCategory = ({ title, icon, subtitle, skills }) => {
 
 const About = () => {
   return (
-    <section
-      id="sobre-mí" // Asegúrate de que este ID coincida con el enlace en el Navbar
-      className="py-24 bg-gray-50 px-6 scroll-mt-16"
-    >
+    <section id="sobre-mí" className="py-24 bg-gray-50 px-6 scroll-mt-16">
       <div className="container mx-auto">
-        {/* Encabezado animado */}
+        {/* Encabezado */}
         <motion.h2
           className="text-4xl font-bold text-gray-800 text-center mb-6"
           initial={{ opacity: 0, y: -50 }}
@@ -98,31 +100,24 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <p className="text-lg leading-relaxed mb-4">
+          <p className="text-lg leading-relaxed">
             Soy <strong>Ingeniero en Informática</strong> graduado del{" "}
             <strong>Instituto Tecnológico de Ciudad Guzmán</strong>. Me apasiona desarrollar
-            soluciones modernas y adaptables tanto en el <strong>Back-end</strong> como en
-            el <strong>Front-end</strong>, usando tecnologías actualizadas.
-          </p>
-          <p className="text-lg leading-relaxed">
-            Mi objetivo es crear aplicaciones eficientes que resuelvan problemas reales y
-            ofrezcan una excelente experiencia al usuario.
+            soluciones modernas en el <strong>Back-end</strong> y el <strong>Front-end</strong>, utilizando
+            tecnologías actualizadas.
           </p>
         </motion.div>
-
-        {/* Habilidades Back-end */}
+        {/* Categorías de habilidades */}
         <SkillsCategory
           title="Habilidades Back-end"
           icon={<FaCogs className="mr-2 text-yellow-500" />}
-          subtitle="Tecnologías que domino para crear soluciones robustas y escalables en el servidor."
+          subtitle="Tecnologías para el desarrollo del servidor."
           skills={backendSkills}
         />
-
-        {/* Habilidades Web */}
         <SkillsCategory
           title="Habilidades Web"
           icon={<FaLaptopCode className="mr-2 text-yellow-500" />}
-          subtitle="Herramientas modernas para desarrollar interfaces atractivas y responsivas."
+          subtitle="Herramientas para crear interfaces modernas."
           skills={webSkills}
         />
       </div>
