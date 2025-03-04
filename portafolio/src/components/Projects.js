@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import "swiper/css/effect-coverflow";
+import { Navigation, EffectCoverflow } from "swiper/modules";
 import {
   FaPython,
   FaJsSquare,
@@ -24,7 +24,7 @@ const projects = [
     technologies: [
       { name: "Python", icon: <FaPython className="text-blue-500" /> },
       { name: "JavaScript", icon: <FaJsSquare className="text-yellow-500" /> },
-      { name: "SQL Server", icon: <FaDatabase className="text-gray-700" /> },
+      { name: "SQL Server", icon: <FaDatabase className="text-gray-400" /> },
       { name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
       { name: "Bootstrap", icon: <FaBootstrap className="text-purple-500" /> },
     ],
@@ -87,133 +87,165 @@ const projects = [
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Estilo común para todas las cards (efecto glass con tono amarillito)
-  const yellowCardStyle = {
-    backgroundColor: "rgba(255,249,230,0.8)", // efecto glass similar al tema light
-    border: "1px solid rgba(241,196,15,0.5)",  // borde con tonalidad amarilla
-    borderRadius: "1rem",
-    backdropFilter: "blur(10px)",
+  // Animación de tarjeta
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 120, 
+        damping: 15 
+      }
+    }
+  };
+
+  // Animación de fondo modal
+  const modalOverlay = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.3 }
+    }
   };
 
   return (
-    <section id="proyectos" className="py-16 bg-gray-100 px-6 scroll-mt-16">
-      <div className="container mx-auto">
-        {/* Encabezado */}
+    <section id="proyectos" className="relative min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 py-20 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Encabezado con efecto neón */}
         <motion.h2
-          className="text-4xl font-bold text-gray-800 text-center mb-8"
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          className="text-5xl md:text-7xl font-extrabold mb-16 text-center bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ 
+            opacity: 1, 
+            y: 0,
+            textShadow: "0 0 20px rgba(255, 255, 0, 0.5)"
+          }}
+          viewport={{ once: true, margin: "-100px" }}
         >
-          Proyectos Recientes
+          Proyectos Destacados
         </motion.h2>
-        <motion.p
-          className="text-gray-600 text-center mb-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          Explora algunos de los proyectos que he desarrollado recientemente.
-        </motion.p>
 
-        {/* Grid de Proyectos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grid de proyectos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="rounded-lg shadow-md cursor-pointer hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-              onClick={() => setSelectedProject(project)}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              style={yellowCardStyle}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
             >
-              <img
-                src={project.images[0]}
-                alt={project.title}
-                className="w-full h-56 object-cover rounded-t-lg"
-              />
-              <div className="p-4 text-center">
-                <h3 className="text-xl font-semibold text-gray-700">
-                  {project.title}
-                </h3>
+              <div 
+                className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer transform transition-all hover:-translate-y-2 shadow-2xl hover:shadow-yellow-500/20"
+                onClick={() => setSelectedProject(project)}
+              >
+                {/* Efecto de brillo al hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 opacity-0 group-hover:opacity-100 transition-opacity z-20" />
+                
+                {/* Imagen principal */}
+                <motion.img
+                  src={project.images[0]}
+                  alt={project.title}
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  whileHover={{ scale: 1.05 }}
+                />
+                
+                {/* Overlay de información */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 flex flex-col justify-end">
+                  <motion.div
+                    className="space-y-3"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                    <div className="flex gap-2 flex-wrap">
+                      {project.technologies.map((tech, i) => (
+                        <motion.div
+                          key={i}
+                          className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full flex items-center gap-2 text-sm text-gray-200 hover:bg-white/20 transition-colors"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          {tech.icon}
+                          <span>{tech.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
+      </div>
 
-        {/* Modal con Carrusel */}
-        <AnimatePresence>
-          {selectedProject && (
+      {/* Modal de detalle */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4"
+            variants={modalOverlay}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            onClick={() => setSelectedProject(null)}
+          >
             <motion.div
-              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
+              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-4xl w-full overflow-hidden border border-slate-600/30 shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <motion.div
-                className="bg-white rounded-lg p-6 max-w-3xl w-full shadow-2xl relative overflow-hidden"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-                onClick={(e) => e.stopPropagation()}
+              {/* Carrusel */}
+              <Swiper
+                navigation={true}
+                modules={[Navigation]}
+                className="h-96 w-full"
               >
-                {/* Botón Cerrar */}
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
-                >
-                  &times;
-                </button>
+                {selectedProject.images.map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <img 
+                      src={img} 
+                      alt={`Slide ${index}`} 
+                      className="w-full h-full object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-                {/* Carrusel */}
-                <Swiper
-                  navigation={true}
-                  modules={[Navigation]}
-                  className="w-full h-64 rounded-lg mb-6"
-                >
-                  {selectedProject.images.map((img, index) => (
-                    <SwiperSlide key={index}>
-                      <motion.img
-                        src={img}
-                        alt={`Slide ${index + 1}`}
-                        className="w-full h-64 object-cover rounded-lg"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-
-                {/* Contenido */}
-                <h3 className="text-2xl font-bold text-gray-800 mb-2 text-center">
-                  {selectedProject.title}
-                </h3>
-                <p className="text-gray-600 mb-4 text-center">
-                  {selectedProject.description}
-                </p>
-                <h4 className="text-lg font-semibold text-gray-700 mb-4 text-center">
-                  Tecnologías Utilizadas:
-                </h4>
-                <div className="flex justify-center gap-4 text-3xl">
+              {/* Contenido del modal */}
+              <div className="p-6 space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    {selectedProject.description}
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {selectedProject.technologies.map((tech, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      {tech.icon}
-                      <span className="text-sm text-gray-600 mt-2">
+                    <motion.div
+                      key={index}
+                      className="p-4 bg-slate-700/30 backdrop-blur-sm rounded-xl flex flex-col items-center gap-2 hover:bg-slate-700/50 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="text-3xl">{tech.icon}</div>
+                      <span className="text-sm text-slate-200 font-medium">
                         {tech.name}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
