@@ -15,36 +15,60 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const textAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.8,
+        repeat: Infinity, // Loop the animation infinitely
+        repeatType: "reverse", // Subtle reverse effect for looping
+      },
+    }),
+  };
+
   return (
     <motion.nav
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className={`fixed w-full z-50 bg-white px-6 md:px-16 py-4 transition-shadow duration-300 ${
-        scrolled ? "shadow-md" : ""
+      className={`fixed w-full z-50 bg-white px-6 md:px-16 py-4 border-b border-gray-200 transition-shadow duration-300 ${
+        scrolled ? "shadow-lg" : ""
       }`}
     >
       <div className="container mx-auto flex justify-between items-center">
         {/* Texto Animado */}
-        <motion.div
-          className="text-2xl font-bold text-yellow-500"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          Codificando...
+        <motion.div className="text-2xl font-bold text-gray-800 flex space-x-1">
+          {"Codificando...".split("").map((char, index) => (
+            <motion.span
+              key={index}
+              custom={index}
+              variants={textAnimation}
+              initial="hidden"
+              animate="visible"
+              className="inline-block"
+            >
+              {char}
+            </motion.span>
+          ))}
         </motion.div>
 
         {/* Menú en Escritorio */}
         <ul className="hidden md:flex md:items-center md:space-x-8">
-          {["Inicio", "Sobre Mí", "Proyectos", "Contacto"].map((item, index) => (
+          {["Inicio", "Proyectos", "Habilidades", "Contacto"].map((item, index) => (
             <li key={index}>
               <Link
-                to={item.toLowerCase().replace(" ", "-")}
+                to={
+                  item === "Habilidades"
+                    ? "habilidades" // Ensure this matches the correct section ID
+                    : item.toLowerCase().replace(" ", "-")
+                }
                 smooth={true}
-                duration={500} // Cambiado a una duración más rápida
+                duration={500}
                 offset={-64}
-                className="text-gray-700 hover:text-yellow-500 transition duration-300 cursor-pointer"
+                className="text-gray-800 hover:text-yellow-200 transition duration-300 cursor-pointer"
               >
                 {item}
               </Link>
@@ -55,7 +79,7 @@ const Navbar = () => {
         {/* Icono del Menú Móvil */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-gray-700 text-2xl focus:outline-none"
+          className="md:hidden text-gray-800 text-2xl focus:outline-none"
           aria-label="Toggle Menu"
         >
           {isOpen ? <FaTimes /> : <FaBars />}
@@ -69,15 +93,19 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-gray-100 rounded-lg mt-4 shadow-md"
+            className="md:hidden bg-white rounded-lg mt-4 shadow-md"
           >
             <ul className="flex flex-col items-center space-y-4 py-4">
-              {["Inicio", "Sobre Mí", "Proyectos", "Contacto"].map((item, index) => (
+              {["Inicio", "Proyectos", "Habilidades", "Contacto"].map((item, index) => (
                 <li key={index}>
                   <Link
-                    to={item.toLowerCase().replace(" ", "-")}
+                    to={
+                      item === "Habilidades"
+                        ? "habilidades" // Ensure this matches the correct section ID
+                        : item.toLowerCase().replace(" ", "-")
+                    }
                     smooth={true}
-                    duration={500} // Cambiado a una duración más rápida
+                    duration={500}
                     offset={-64}
                     onClick={() => setIsOpen(false)}
                     className="text-gray-700 hover:text-yellow-500 transition duration-300 cursor-pointer"

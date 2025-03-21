@@ -239,13 +239,15 @@ const Projects = () => {
               exit={{ scale: 0.9, opacity: 0, y: 50 }} // Added exit animation to slide down
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Botón para cerrar el modal */}
-              <button
-                className="absolute top-4 right-4 z-50 text-slate-300 hover:text-white bg-slate-700/50 hover:bg-slate-700/70 rounded-full p-2 transition-colors"
-                onClick={() => setSelectedProject(null)}
-              >
-                <FaTimes className="text-xl" />
-              </button>
+              {/* Move close button inside modal content */}
+              <div className="relative">
+                <button
+                  className="absolute top-4 right-4 z-50 text-slate-300 hover:text-white bg-slate-700/50 hover:bg-slate-700/70 rounded-full p-2 transition-colors sm:top-4 sm:right-4 md:top-4 md:right-4"
+                  onClick={() => setSelectedProject(null)}
+                >
+                  <FaTimes className="text-xl" />
+                </button>
+              </div>
               {/* Carrusel */}
               <Swiper
                 navigation={true}

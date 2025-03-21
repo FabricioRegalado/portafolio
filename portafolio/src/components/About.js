@@ -85,7 +85,7 @@ const SkillCard = ({ skill }) => {
 const About = () => {
   return (
     <motion.section
-      id="sobre-mí"
+      id="habilidades"
       className="py-28 px-6 scroll-mt-16 bg-gradient-to-b from-yellow-50 to-white"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
