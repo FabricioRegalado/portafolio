@@ -17,10 +17,10 @@ const projects = [
 
 const Work = () => {
   return (
-    <section id="proyectos" className="py-16 bg-gray-50">
+    <section id="proyectos" className="py-16 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-800">Proyectos Destacados</h2>
-        <p className="text-gray-600 mt-4">
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100">Proyectos Destacados</h2>
+        <p className="text-gray-600 dark:text-gray-300 mt-4">
           Aquí puedes ver algunos de mis proyectos recientes.
         </p>
       </div>
@@ -28,7 +28,7 @@ const Work = () => {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-lg shadow-lg overflow-hidden"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -36,7 +36,7 @@ const Work = () => {
             <img src={project.image} alt={project.title} />
             <div className="p-6">
               <h3 className="text-2xl font-bold">{project.title}</h3>
-              <p className="text-gray-600 mt-2">{project.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">{project.description}</p>
               <a
                 href={project.link}
                 className="block mt-4 text-blue-500 hover:underline"

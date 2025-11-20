@@ -21,25 +21,25 @@ import { SiDart, SiFlutter, SiMysql } from "react-icons/si";
 // Datos unificados con habilidades blandas
 const allSkills = [
   // Técnicas
-  { name: "C#", icon: <FaCogs className="text-yellow-500" /> },
-  { name: "Java", icon: <FaJava className="text-yellow-500" /> },
-  { name: "SQL", icon: <SiMysql className="text-yellow-500" /> },
-  { name: "Python", icon: <FaPython className="text-yellow-500" /> },
-  { name: "JavaScript", icon: <FaJsSquare className="text-yellow-500" /> },
-  { name: "Dart", icon: <SiDart className="text-yellow-500" /> },
-  { name: "HTML", icon: <FaHtml5 className="text-yellow-500" /> },
-  { name: "CSS", icon: <FaCss3Alt className="text-yellow-500" /> },
-  { name: "Flutter", icon: <SiFlutter className="text-yellow-500" /> },
-  { name: "React", icon: <FaReact className="text-yellow-500" /> },
-  { name: "Git", icon: <FaGitSquare className="text-yellow-500" /> },
-  { name: "Kotlin", icon: <FaAndroid className="text-yellow-500" /> },
+  { name: "C#", icon: <FaCogs className="text-primary dark:text-primary-dark" /> },
+  { name: "Java", icon: <FaJava className="text-primary dark:text-primary-dark" /> },
+  { name: "SQL", icon: <SiMysql className="text-primary dark:text-primary-dark" /> },
+  { name: "Python", icon: <FaPython className="text-primary dark:text-primary-dark" /> },
+  { name: "JavaScript", icon: <FaJsSquare className="text-primary dark:text-primary-dark" /> },
+  { name: "Dart", icon: <SiDart className="text-primary dark:text-primary-dark" /> },
+  { name: "HTML", icon: <FaHtml5 className="text-primary dark:text-primary-dark" /> },
+  { name: "CSS", icon: <FaCss3Alt className="text-primary dark:text-primary-dark" /> },
+  { name: "Flutter", icon: <SiFlutter className="text-primary dark:text-primary-dark" /> },
+  { name: "React", icon: <FaReact className="text-primary dark:text-primary-dark" /> },
+  { name: "Git", icon: <FaGitSquare className="text-primary dark:text-primary-dark" /> },
+  { name: "Kotlin", icon: <FaAndroid className="text-primary dark:text-primary-dark" /> },
   
   // Habilidades blandas
-  { name: "Trabajo en equipo", icon: <FaUsers className="text-yellow-500" /> },
-  { name: "Comunicación", icon: <FaComment className="text-yellow-500" /> },
-  { name: "Resolución de problemas", icon: <FaLightbulb className="text-yellow-500" /> },
-  { name: "Liderazgo", icon: <FaUserFriends className="text-yellow-500" /> },
-  { name: "Pensamiento crítico", icon: <FaBrain className="text-yellow-500" /> },
+  { name: "Trabajo en equipo", icon: <FaUsers className="text-primary dark:text-primary-dark" /> },
+  { name: "Comunicación", icon: <FaComment className="text-primary dark:text-primary-dark" /> },
+  { name: "Resolución de problemas", icon: <FaLightbulb className="text-primary dark:text-primary-dark" /> },
+  { name: "Liderazgo", icon: <FaUserFriends className="text-primary dark:text-primary-dark" /> },
+  { name: "Pensamiento crítico", icon: <FaBrain className="text-primary dark:text-primary-dark" /> },
 ];
 
 // Animaciones
@@ -59,7 +59,7 @@ const cardVariants = {
 const SkillCard = ({ skill }) => {
   return (
     <motion.div
-      className="group bg-white rounded-2xl p-6 border-2 border-yellow-50 hover:border-yellow-200 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-yellow-100/20 flex flex-col items-center justify-center text-center h-full"
+      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-primary/10 dark:border-gray-700 hover:border-primary/30 transition-all duration-300 shadow-xl hover:shadow-2xl flex flex-col items-center justify-center text-center h-full"
       variants={cardVariants}
       whileHover={{ 
         scale: 1.05,
@@ -67,15 +67,15 @@ const SkillCard = ({ skill }) => {
       }}
     >
       <div className="relative mb-4">
-        <div className="absolute inset-0 bg-yellow-100 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 rounded-full" />
+        <div className="absolute inset-0 bg-primary/10 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 rounded-full" />
         <motion.div 
-          className="text-5xl p-5 bg-yellow-50 rounded-2xl mb-4 transition-all duration-300 group-hover:bg-yellow-100 group-hover:scale-110"
+          className="text-5xl p-5 bg-primary/20 dark:bg-primary-dark/20 rounded-2xl mb-4 transition-all duration-300 group-hover:bg-primary/30 group-hover:scale-110"
           whileHover={{ rotate: 15 }}
         >
           {skill.icon}
         </motion.div>
       </div>
-      <h4 className="text-xl font-bold text-gray-800 bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
+      <h4 className="text-xl font-bold text-gray-800 dark:text-gray-100 bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
         {skill.name}
       </h4>
     </motion.div>
@@ -86,7 +86,7 @@ const About = () => {
   return (
     <motion.section
       id="habilidades"
-      className="py-28 px-6 scroll-mt-16 bg-gradient-to-b from-yellow-50 to-white"
+      className="py-28 px-6 scroll-mt-16 bg-gradient-to-b from-primary/8 to-white dark:from-gray-900 dark:to-gray-900"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -99,11 +99,11 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl font-bold text-gray-800 mb-6">
+          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-100 mb-6">
             Habilidades y Competencias
           </h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
               Conjunto de habilidades técnicas y competencias profesionales que desarrollo y perfecciono continuamente.
             </p>
           </div>

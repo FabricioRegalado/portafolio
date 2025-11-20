@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer
       id="contacto"
-      className="relative bg-gradient-to-br from-yellow-400 via-yellow-300 to-yellow-500 text-gray-800 py-16 scroll-mt-16"
+      className="relative bg-gradient-to-br from-primary/80 via-primary/60 to-primary-dark dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 py-16 scroll-mt-16"
     >
       <div className="container mx-auto px-6 lg:px-20 text-center space-y-12">
         {/* Sección Información */}
@@ -16,10 +16,10 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 drop-shadow-md">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-md">
             Oscar Fabricio Regalado Pérez
           </h2>
-          <p className="text-lg md:text-xl mt-4 font-light text-gray-800 drop-shadow-md">
+          <p className="text-lg md:text-xl mt-4 font-light text-gray-800 dark:text-gray-200 drop-shadow-md">
             Transformando ideas en aplicaciones funcionales y modernas.
           </p>
         </motion.div>
@@ -51,7 +51,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.3, y: -5 }}
-              className="text-gray-800 hover:text-gray-900 transition-all duration-300"
+              className="text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-all duration-300"
               aria-label={social.label}
             >
               {React.cloneElement(social.icon, {
@@ -81,7 +81,7 @@ const Footer = () => {
             href="./cv.pdf"
             download
             whileHover={{ scale: 1.05, y: -5 }}
-            className="flex items-center border border-black text-black bg-white px-6 py-3 rounded-lg hover:bg-gray-200 transition-all duration-300"
+            className="flex items-center border border-gray-800 dark:border-gray-600 text-black dark:text-gray-200 bg-white dark:bg-gray-800 px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
           >
             <FaFileDownload className="mr-2" />
             Descargar CV
@@ -90,7 +90,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <motion.div
-          className="text-sm text-gray-800 drop-shadow-md"
+          className="text-sm text-gray-800 dark:text-gray-200 drop-shadow-md"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
