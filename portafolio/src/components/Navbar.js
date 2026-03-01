@@ -103,12 +103,14 @@ const Navbar = () => {
 
         {/* Menú en Escritorio */}
         <ul className="hidden md:flex md:items-center md:space-x-6">
-          {["Inicio", "Proyectos", "Habilidades", "Contacto"].map((item, index) => (
+          {["Inicio", "Proyectos", "Experiencia", "Habilidades", "Contacto"].map((item, index) => (
             <li key={index}>
               <Link
                 to={
                   item === "Habilidades"
-                    ? "habilidades" // Ensure this matches the correct section ID
+                    ? "habilidades"
+                    : item === "Experiencia"
+                    ? "experiencia"
                     : item.toLowerCase().replace(" ", "-")
                 }
                 smooth={true}
@@ -167,12 +169,14 @@ const Navbar = () => {
             className="md:hidden bg-white dark:bg-gray-800 dark:text-gray-200 rounded-lg mt-4 shadow-md"
           >
             <ul className="flex flex-col items-center space-y-4 py-4">
-              {["Inicio", "Proyectos", "Habilidades", "Contacto"].map((item, index) => (
+              {["Inicio", "Proyectos", "Experiencia", "Habilidades", "Contacto"].map((item, index) => (
                 <li key={index}>
                   <Link
                     to={
                       item === "Habilidades"
-                        ? "habilidades" // Ensure this matches the correct section ID
+                        ? "habilidades"
+                        : item === "Experiencia"
+                        ? "experiencia"
                         : item.toLowerCase().replace(" ", "-")
                     }
                     smooth={true}
