@@ -147,8 +147,8 @@ const projects = [
     ],
     images: [
       `${process.env.PUBLIC_URL}/images/CatMok1.png`,
-      `${process.env.PUBLIC_URL}/images/catMok2.png`,
-      `${process.env.PUBLIC_URL}/images/catMok3.png`,
+      `${process.env.PUBLIC_URL}/images/CatMok2.png`,
+      `${process.env.PUBLIC_URL}/images/CatMok3.png`,
     ],
     demo: "https://fabricioregalado.github.io/catalogo-scian-bmx/",
     repo: "#",
