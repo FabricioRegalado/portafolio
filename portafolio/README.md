@@ -1,70 +1,164 @@
-# Getting Started with Create React App
+# Portafolio Profesional - Fabricio Regalado
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **Ingeniero en Informática y Desarrollador Web** | Creador de experiencias digitales modernas y funcionales
 
-## Available Scripts
+Bienvenido a mi portafolio profesional. Este proyecto showcasea mis habilidades en desarrollo full-stack, machine learning, y diseño moderno de interfaces con animaciones sofisticadas.
 
-In the project directory, you can run:
+## Características Principales
 
-### `npm start`
+- **Diseño Moderno y Responsivo**: Interfaz profesional optimizada para todas las plataformas
+- **Animaciones Suaves**: Transiciones elegantes con Framer Motion
+- **Dark Mode**: Soporte completo para modo oscuro
+- **Galería Interactiva**: Carrusel de proyectos con navegación intuitiva
+- **Sección de Habilidades**: Showcase de tecnologías y competencias
+- **Experiencia Profesional**: Timeline detallado de experiencias laborales
+- **Sistema de Contacto**: Enlaces directos a redes sociales y email
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Stack Tecnológico
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- **React 18.2.0** - Biblioteca UI moderna
+- **Tailwind CSS 3.4.16** - Utilidades de CSS para diseño
+- **Framer Motion 10.16.4** - Animaciones declarativas
+- **Vite 5.0.2** - Build tool rápido y moderno
+- **React Icons 5.4.0** - Librería de iconos
 
-### `npm test`
+### Backend & Datos
+- **Node.js** - Runtime de JavaScript
+- **Express.js** - Framework web
+- **MongoDB** - Base de datos NoSQL
+- **Python** - Análisis de datos y ML
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Herramientas
+- **Git & GitHub** - Control de versiones
+- **GitHub Pages** - Hosting y deployment
+- **Swiper 11.1.15** - Carrusel responsive
 
-### `npm run build`
+## Proyectos Destacados
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Proyecto | Descripción | Tecnologías |
+|----------|-------------|------------|
+| Sistema Inventarios | Predicción de inventarios con ML | Python, JavaScript, SQL Server |
+| Gestión de Pedidos | App de gestión con panel de control | React, Node, MongoDB |
+| Monchies Burgers | E-commerce de pedidos online | React, Tailwind, WhatsApp API |
+| Asesorados Gym | App de entrenamientos personalizados | React, Vite, Tailwind CSS |
+| Dashboard Be Fit | Sistema de punto de venta | MERN Stack |
+| SPA Catálogo | Catálogo con filtrado dinámico | React, Tailwind, JavaScript |
+| SPA SCIAN-BMX | Cross-linking de catálogos especializados | React, Python, ML |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Experiencia Profesional
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Analista TI - FITA SERVICIOS FINANCIEROS
+**Actualidad** | Soporte técnico especializado en sistemas financieros
 
-### `npm run eject`
+### Residencia Profesional - CANVE SA
+**Jun 2024 - Dic 2024** | Desarrollo de sistema de predicción de inventarios con redes neuronales
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Cómo Usar Este Proyecto
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Requisitos Previos
+- Node.js 16+ instalado
+- npm o yarn como gestor de paquetes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Instalación
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+# Clonar el repositorio
+git clone https://github.com/FabricioRegalado/portafolio.git
+cd portafolio
 
-## Learn More
+# Instalar dependencias
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Desarrollo Local
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+# Iniciar servidor de desarrollo
+npm start
 
-### Code Splitting
+# La aplicación estará disponible en http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Construcción para Producción
 
-### Analyzing the Bundle Size
+```bash
+# Crear build optimizado
+npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Servir la carpeta /build en producción
+npm run deploy
+```
 
-### Making a Progressive Web App
+## Estructura del Proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+portafolio/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.js          # Navegación principal
+│   │   ├── Hero.js            # Sección de bienvenida
+│   │   ├── Projects.js        # Galería de proyectos
+│   │   ├── About.js           # Sección de habilidades
+│   │   ├── Work.js            # Experiencia profesional
+│   │   ├── Contact.js         # Información de contacto
+│   │   └── Footer.js          # Pie de página
+│   ├── App.js                 # Componente principal
+│   ├── App.css                # Estilos globales
+│   └── index.js               # Punto de entrada
+├── public/
+│   ├── images/                # Imágenes de proyectos
+│   └── index.html             # HTML base
+├── tailwind.config.js         # Configuración de Tailwind
+├── package.json               # Dependencias y scripts
+└── README.md                  # Este archivo
+```
 
-### Advanced Configuration
+## Paleta de Colores
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Primary (Amarillo)**: `#F59E0B` - Color principal de marca
+- **Primary Light**: `#FCD34D` - Variante clara
+- **Primary Dark**: `#D97706` - Variante oscura
+- **Secondary (Negro)**: `#1f2937` - Texto principal
+- **Accent (Verde)**: `#10b981` - Elementos secundarios
 
-### Deployment
+## Compatibilidad
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Chrome, Firefox, Safari, Edge (últimas versiones)
+- Responsive Design (Mobile, Tablet, Desktop)
+- Dark Mode compatible
+- Progressive Web App
 
-### `npm run build` fails to minify
+## Enlaces Importantes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Portafolio: [https://fabricioregalado.com](https://fabricioregalado.com)
+- LinkedIn: [linkedin.com/in/oscar-fabricio-regalado](https://www.linkedin.com/in/oscar-fabricio-regalado-p%C3%A9rez-90181b225/)
+- GitHub: [github.com/FabricioRegalado](https://github.com/FabricioRegalado)
+- Email: oscarfabricio55@gmail.com
+- Instagram: [@fabricio_ouo](https://www.instagram.com/fabricio_ouo/)
+
+## Estadísticas del Proyecto
+
+- **Tamaño del Build**: 139.95 kB (gzipped)
+- **CSS Optimizado**: 7.73 kB (gzipped)
+- **Componentes Funcionales**: 7
+- **Proyectos Showcaseados**: 7
+- **Animaciones**: 20+
+
+## Mejoras Futuras
+
+- Agregar blog de artículos técnicos
+- Integrar formulario de contacto funcional
+- System de certificaciones
+- API REST para datos dinámicos
+- Testing automatizado con Jest y React Testing Library
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta [LICENSE](./LICENSE) para más detalles.
+
+---
+
+**Desarrollado con dedicación por Fabricio Regalado**
+
+*Último actualizado: Marzo 2026*

@@ -59,23 +59,23 @@ const cardVariants = {
 const SkillCard = ({ skill }) => {
   return (
     <motion.div
-      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-primary/10 dark:border-gray-700 hover:border-primary/30 transition-all duration-300 shadow-xl hover:shadow-2xl flex flex-col items-center justify-center text-center h-full"
+      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/40 transition-all duration-300 shadow-md hover:shadow-xl flex flex-col items-center justify-center text-center h-full cursor-default"
       variants={cardVariants}
-      whileHover={{ 
-        scale: 1.05,
-        rotate: Math.random() * 4 - 2 // Pequeña rotación aleatoria al hacer hover
-      }}
+      whileHover={{ scale: 1.12, y: -8 }}
     >
-      <div className="relative mb-4">
-        <div className="absolute inset-0 bg-primary/10 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 rounded-full" />
+      <motion.div
+        className="relative mb-4"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 0.5 }}
+      >
         <motion.div 
-          className="text-5xl p-5 bg-primary/20 dark:bg-primary-dark/20 rounded-2xl mb-4 transition-all duration-300 group-hover:bg-primary/30 group-hover:scale-110"
-          whileHover={{ rotate: 15 }}
+          className="text-5xl mb-3 p-4 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl transition-all duration-300 group-hover:from-primary/30 group-hover:to-primary/20"
+          whileHover={{ rotate: 12, scale: 1.1 }}
         >
           {skill.icon}
         </motion.div>
-      </div>
-      <h4 className="text-xl font-bold text-gray-800 dark:text-gray-100 bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+      </motion.div>
+      <h4 className="text-sm md:text-base font-bold text-secondary dark:text-white group-hover:text-primary transition-colors">
         {skill.name}
       </h4>
     </motion.div>
@@ -86,7 +86,7 @@ const About = () => {
   return (
     <motion.section
       id="habilidades"
-      className="py-28 px-6 scroll-mt-16 bg-gradient-to-b from-primary/8 to-white dark:from-gray-900 dark:to-gray-900"
+      className="py-24 px-6 scroll-mt-16 bg-gray-50 dark:bg-gray-900"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -99,26 +99,25 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-100 mb-6">
-            Habilidades y Competencias
+          <h2 className="text-5xl md:text-6xl font-bold text-secondary dark:text-white mb-4">
+            Habilidades y
+            <span className="text-primary"> Competencias</span>
           </h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-              Conjunto de habilidades técnicas y competencias profesionales que desarrollo y perfecciono continuamente.
-            </p>
-          </div>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Conjunto de habilidades técnicas y competencias profesionales que desarrollo y perfecciono continuamente.
+          </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={{
             visible: { 
               transition: { 
-                staggerChildren: 0.1, 
-                delayChildren: 0.3 
+                staggerChildren: 0.08, 
+                delayChildren: 0.2 
               } 
             }
           }}

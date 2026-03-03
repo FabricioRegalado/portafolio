@@ -128,13 +128,29 @@ const projects = [
     ],
     repo: "#",
   },
+  {
+    title: "SPA Catálogo Scian - Actividad BMX",
+    description:
+      "Plataforma de una sola página que vincula el catálogo SCIAN con actividades de BMX, mostrando en el buscador solo los elementos que coinciden entre ambas clasificaciones. Utiliza filtrado dinámico para facilitar la exploración de la intersección entre SCIAN y BMX.",
+    technologies: [
+      { name: "Vite", icon: <SiVite className="text-violet-500" /> },
+      { name: "React", icon: <FaReact className="text-blue-500" /> },
+      { name: "Python", icon: <FaPython className="text-blue-500" /> },
+      { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
+    ],
+    images: [
+      `${process.env.PUBLIC_URL}/images/catMok1.png`,
+      `${process.env.PUBLIC_URL}/images/catMok2.png`,
+      `${process.env.PUBLIC_URL}/images/catMok3.png`,
+    ],
+    repo: "#",
+  },
 ];
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [loadedImages, setLoadedImages] = useState({});
 
-  // Animación de tarjeta
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: {
@@ -144,32 +160,29 @@ const Projects = () => {
       transition: {
         type: "spring",
         stiffness: 120,
-        damping: 15
-      }
-    }
-  };
-
-  // Animación de fondo modal
-  const modalOverlay = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.3 }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
-    <section id="proyectos" className="relative min-h-screen bg-white dark:bg-gray-900 py-20 overflow-hidden transition-colors duration-300">
+    <section id="proyectos" className="relative min-h-screen bg-gray-50 dark:bg-gray-900 py-24 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Encabezado */}
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold mb-12 text-center text-gray-900 dark:text-gray-100"
+        <motion.div
+          className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <span className="text-primary dark:text-primary-dark">Proyectos</span> Destacados
-        </motion.h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-4 text-secondary dark:text-white">
+            Proyectos
+            <span className="text-primary"> Destacados</span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Trabajos realizados con dedicación y atención al detalle
+          </p>
+        </motion.div>
 
         {/* Grid de proyectos */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -182,36 +195,62 @@ const Projects = () => {
               viewport={{ once: true, margin: "-50px" }}
             >
               <article
-                className="group relative rounded-2xl overflow-hidden cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transform transition-all"
+                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden cursor-pointer border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-2xl transition-all duration-500 h-full flex flex-col hover:border-primary/50 dark:hover:border-primary/40"
                 onClick={() => setSelectedProject(project)}
               >
-                {/* Skeleton until image loads */}
+                {/* Imagen con overlay */}
                 {!loadedImages[index] && (
-                  <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                  <div className="w-full h-56 bg-gray-200 dark:bg-gray-700 animate-pulse" />
                 )}
 
-                <img
-                  src={project.images[0]}
-                  alt={project.title}
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                  onLoad={() => setLoadedImages((s) => ({ ...s, [index]: true }))}
-                />
+                <div className="relative overflow-hidden h-56 bg-gray-100 dark:bg-gray-700">
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
+                    loading="lazy"
+                    onLoad={() => setLoadedImages((s) => ({ ...s, [index]: true }))}
+                  />
+                  {/* Overlay animado */}
+                  <motion.div
+                    className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-500 flex items-center justify-center"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  >
+                    <motion.div
+                      className="text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity"
+                      initial={{ scale: 0.5 }}
+                      whileHover={{ scale: 1 }}
+                    >
+                      +
+                    </motion.div>
+                  </motion.div>
+                </div>
 
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{project.title}</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{project.description}</p>
+                {/* Contenido */}
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-secondary dark:text-white mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-1 line-clamp-2">
+                    {project.description}
+                  </p>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.technologies.map((tech, i) => (
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 3).map((tech, i) => (
                       <div
                         key={i}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200"
+                        className="px-3 py-1 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center gap-1.5 text-xs text-primary dark:text-primary-light"
                       >
                         {tech.icon}
                         <span>{tech.name}</span>
                       </div>
                     ))}
+                    {project.technologies.length > 3 && (
+                      <span className="px-3 py-1 text-xs text-gray-600 dark:text-gray-400">
+                        +{project.technologies.length - 3} más
+                      </span>
+                    )}
                   </div>
                 </div>
               </article>
@@ -220,84 +259,82 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Modal de detalle */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xl flex items-center justify-center z-50 p-4"
-            variants={modalOverlay}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0, y: 50 }} // Added exit animation to slide down
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4 overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full overflow-hidden border border-gray-200 dark:border-gray-700 shadow-2xl relative transition-colors"
-              initial={{ scale: 0.9, opacity: 0, y: -20 }} // Adjusted initial position slightly higher
-              animate={{ scale: 1, opacity: 1, y: 0 }} // Adjusted animation to settle slightly lower
-              exit={{ scale: 0.9, opacity: 0, y: 50 }} // Added exit animation to slide down
+              className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl md:max-w-4xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-2xl my-6"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Move close button inside modal content */}
               <div className="relative">
                 <button
-                  className="absolute top-4 right-4 z-50 text-gray-600 dark:text-gray-200 bg-gray-100/60 dark:bg-gray-700/60 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition-colors sm:top-4 sm:right-4 md:top-4 md:right-4"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 text-secondary dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full p-2 transition"
                   onClick={() => setSelectedProject(null)}
                 >
-                  <FaTimes className="text-xl" />
+                  <FaTimes className="text-lg" />
                 </button>
-              </div>
-              {/* Carrusel */}
-              <Swiper
-                navigation={true}
-                autoplay={{ delay: 2000, disableOnInteraction: false }} // Configuración de autoplay
-                modules={[Navigation, Autoplay]} // Agregar Autoplay a los módulos
-                className="h-96 w-full"
-              >
-                {selectedProject.images.map((img, index) => (
-                  <SwiperSlide key={index}>
-                    <img
-                      src={img}
-                      alt={`Slide ${index}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
 
-              {/* Contenido del modal */}
-              <div className="p-6 space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                <Swiper
+                  navigation={true}
+                  autoplay={{ delay: 4000, disableOnInteraction: false }}
+                  modules={[Navigation, Autoplay]}
+                  className="w-full h-48 sm:h-64 md:h-96"
+                >
+                  {selectedProject.images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <img
+                        src={img}
+                        alt={`Slide ${index}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6 max-h-96 md:max-h-none overflow-y-auto md:overflow-y-visible">
+                <div>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary dark:text-white mb-2 sm:mb-3">
                     {selectedProject.title}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                     {selectedProject.description}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {selectedProject.technologies.map((tech, index) => (
-                    <motion.div
-                      key={index}
-                      className="p-4 bg-gray-100 dark:bg-gray-700 backdrop-blur-sm rounded-xl flex flex-col items-center gap-2 hover:shadow-md transition-all"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      <div className="text-3xl">{tech.icon}</div>
-                      <span className="text-sm text-gray-800 dark:text-gray-200 font-medium">
-                        {tech.name}
-                      </span>
-                    </motion.div>
-                  ))}
+                <div>
+                  <h4 className="text-base sm:text-lg md:text-lg font-semibold text-secondary dark:text-white mb-3 sm:mb-4">
+                    Tecnologías utilizadas
+                  </h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <motion.div
+                        key={index}
+                        className="p-2 sm:p-3 bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center gap-1 sm:gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <div className="text-xl sm:text-2xl">{tech.icon}</div>
+                        <span className="text-xs text-center text-secondary dark:text-gray-200 font-medium line-clamp-1">
+                          {tech.name}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-                
-
               </div>
             </motion.div>
           </motion.div>
-          
         )}
-        
       </AnimatePresence>
     </section>
   );

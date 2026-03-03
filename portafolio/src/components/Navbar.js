@@ -63,46 +63,23 @@ const Navbar = () => {
     }, 760);
   };
 
-  const textAnimation = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.06,
-        duration: 0.6
-      },
-    }),
-  };
-
   return (
     <motion.nav
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 140, damping: 18 }}
-      className={`fixed w-full z-50 backdrop-blur-lg bg-white/60 dark:bg-gray-900/60 px-4 md:px-16 py-3 border-b border-white/40 dark:border-gray-800/40 transition-shadow duration-300 backdrop-filter ${
-        scrolled ? "shadow-lg" : ""
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled ? "bg-white/95 dark:bg-secondary/95 shadow-lg backdrop-blur-md" : "bg-white dark:bg-secondary"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Texto Animado */}
-        <motion.div className="text-2xl font-bold text-gray-800 dark:text-gray-200 flex space-x-1">
-          {"Codificando...".split("").map((char, index) => (
-            <motion.span
-              key={index}
-              custom={index}
-              variants={textAnimation}
-              initial="hidden"
-              animate="visible"
-              className="inline-block"
-            >
-              {char}
-            </motion.span>
-          ))}
+      <div className="container mx-auto px-4 md:px-8 py-3 md:py-4 flex justify-between items-center">
+        {/* Logo */}
+        <motion.div className="text-xl md:text-2xl font-bold text-primary hover:text-primary-dark transition-colors duration-300 cursor-default">
+          FR
         </motion.div>
 
         {/* Menú en Escritorio */}
-        <ul className="hidden md:flex md:items-center md:space-x-6">
+        <ul className="hidden md:flex md:items-center md:space-x-1">
           {["Inicio", "Proyectos", "Experiencia", "Habilidades", "Contacto"].map((item, index) => (
             <li key={index}>
               <Link
@@ -116,9 +93,10 @@ const Navbar = () => {
                 smooth={true}
                 duration={500}
                 offset={-64}
-                className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-dark transition duration-300 cursor-pointer"
+                className="relative px-4 py-2 text-secondary dark:text-gray-200 font-medium transition duration-300 cursor-pointer group"
               >
                 {item}
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
               </Link>
             </li>
           ))}
@@ -128,7 +106,7 @@ const Navbar = () => {
           <button
             onClick={(e) => toggleDark(e)}
             aria-label="Toggle dark mode"
-            className="p-2 rounded-md text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            className="p-2 rounded-lg text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-secondary transition"
           >
             <span className={animating ? 'icon-rotating' : ''}>
               {darkMode ? <FaSun /> : <FaMoon />}
@@ -142,7 +120,7 @@ const Navbar = () => {
           <button
             onClick={(e) => toggleDark(e)}
             aria-label="Toggle dark mode"
-            className="p-2 rounded-md text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            className="p-2 rounded-lg text-secondary dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-secondary transition"
           >
             <span className={animating ? 'icon-rotating' : ''}>
               {darkMode ? <FaSun /> : <FaMoon />}
@@ -151,7 +129,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-800 dark:text-gray-200 text-2xl focus:outline-none p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            className="text-secondary dark:text-gray-300 text-2xl focus:outline-none p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-secondary transition"
             aria-label="Toggle Menu"
           >
             {isOpen ? <FaTimes /> : <FaBars />}
@@ -166,9 +144,9 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-white dark:bg-gray-800 dark:text-gray-200 rounded-lg mt-4 shadow-md"
+            className="md:hidden bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
           >
-            <ul className="flex flex-col items-center space-y-4 py-4">
+            <ul className="flex flex-col items-center space-y-3 py-4">
               {["Inicio", "Proyectos", "Experiencia", "Habilidades", "Contacto"].map((item, index) => (
                 <li key={index}>
                   <Link
@@ -183,7 +161,7 @@ const Navbar = () => {
                     duration={500}
                     offset={-64}
                     onClick={() => setIsOpen(false)}
-                    className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary-dark transition duration-300 cursor-pointer"
+                    className="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary-light font-medium transition duration-300 cursor-pointer"
                   >
                     {item}
                   </Link>
