@@ -16,10 +16,11 @@ import {
   FaReact,
   FaNodeJs,
   FaWhatsapp,
+  FaExternalLinkAlt,
   FaGithubSquare,
   FaTimes,
 } from "react-icons/fa";
-import { SiTailwindcss, SiMongodb, SiVite } from "react-icons/si";
+import { SiTailwindcss, SiMongodb, SiExpress, SiVite } from "react-icons/si";
 
 
 const projects = [
@@ -39,6 +40,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/san_camilo1.png`,
       `${process.env.PUBLIC_URL}/images/san_camilo2.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -56,6 +58,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/pd1.png`,
       `${process.env.PUBLIC_URL}/images/pd2.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -72,6 +75,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/beFitS0.png`,
       `${process.env.PUBLIC_URL}/images/beFitS1.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -90,6 +94,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/burg3.png`,
       `${process.env.PUBLIC_URL}/images/burg4.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -109,6 +114,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/gym2.png`,
       `${process.env.PUBLIC_URL}/images/gym3.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -126,6 +132,7 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/beFitPunto1.png`,
       `${process.env.PUBLIC_URL}/images/beFitPunto2.png`,
     ],
+    demo: "#",
     repo: "#",
   },
   {
@@ -143,6 +150,41 @@ const projects = [
       `${process.env.PUBLIC_URL}/images/catMok2.png`,
       `${process.env.PUBLIC_URL}/images/catMok3.png`,
     ],
+    demo: "https://fabricioregalado.github.io/catalogo-scian-bmx/",
+    repo: "#",
+  },
+  {
+    title: "Generador de Tokens CONDUSEF - REUNE / REDECO",
+    description:
+      "Aplicación web para la generación y renovación de tokens de CONDUSEF (REUNE y REDECO) mediante consumo de API. Incluye envío automático de tokens por correo electrónico a usuarios seleccionados y un flujo seguro para la gestión de credenciales e información.",
+    technologies: [
+      { name: "Vite", icon: <SiVite className="text-violet-500" /> },
+      { name: "React", icon: <FaReact className="text-blue-500" /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-blue-400" /> },
+      { name: "Express.js", icon: <SiExpress className="text-green-500" /> },
+    ],
+    images: [
+      `${process.env.PUBLIC_URL}/images/MokTokens1.png`,
+      
+    ],
+    demo: "#",
+    repo: "#",
+  },
+  {
+    title: "SPA Catálogo Repostería Garcia's",
+    description:
+      "Aplicación de una sola página para explorar el catálogo de productos de Repostería Garcia's. Incluye tarjetas interactivas con enlace directo a Instagram para facilitar el contacto y la consulta de pedidos.",
+    technologies: [
+      { name: "Vite", icon: <SiVite className="text-violet-500" /> },
+      { name: "React", icon: <FaReact className="text-blue-500" /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-blue-400" /> },
+    ],
+    images: [
+      `${process.env.PUBLIC_URL}/images/MokReposteria1.png`,
+      `${process.env.PUBLIC_URL}/images/MokReposteria2.png`,
+      
+    ],
+    demo: "https://fabricioregalado.github.io/reposteria-garcias/",
     repo: "#",
   },
 ];
@@ -150,6 +192,7 @@ const projects = [
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [loadedImages, setLoadedImages] = useState({});
+  const hasValidUrl = (url) => typeof url === "string" && url.trim() !== "" && url !== "#";
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
@@ -311,6 +354,33 @@ const Projects = () => {
                     {selectedProject.description}
                   </p>
                 </div>
+
+                {(hasValidUrl(selectedProject.demo) || hasValidUrl(selectedProject.repo)) && (
+                  <div className="flex flex-wrap gap-3">
+                    {hasValidUrl(selectedProject.demo) && (
+                      <a
+                        href={selectedProject.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-dark transition"
+                      >
+                        <FaExternalLinkAlt className="text-sm" />
+                        Ver demo
+                      </a>
+                    )}
+                    {hasValidUrl(selectedProject.repo) && (
+                      <a
+                        href={selectedProject.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-primary text-primary px-4 py-2 rounded-lg font-medium hover:bg-primary hover:text-white transition"
+                      >
+                        <FaGithubSquare className="text-lg" />
+                        Ver repositorio
+                      </a>
+                    )}
+                  </div>
+                )}
 
                 <div>
                   <h4 className="text-base sm:text-lg md:text-lg font-semibold text-secondary dark:text-white mb-3 sm:mb-4">
