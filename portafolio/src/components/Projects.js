@@ -146,7 +146,7 @@ const projects = [
       { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
     ],
     images: [
-      `${process.env.PUBLIC_URL}/images/catMok1.png`,
+      `${process.env.PUBLIC_URL}/images/CatMok1.png`,
       `${process.env.PUBLIC_URL}/images/catMok2.png`,
       `${process.env.PUBLIC_URL}/images/catMok3.png`,
     ],
