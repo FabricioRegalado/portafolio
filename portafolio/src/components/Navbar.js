@@ -100,7 +100,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <span className="h-9 w-9 rounded-xl bg-primary text-white grid place-items-center font-bold text-sm">FR</span>
           <div className="hidden sm:block leading-tight">
-            <p className="text-sm font-semibold text-[#212121] dark:text-white">Oscar Fabricio</p>
+            <p className="text-sm font-semibold text-[#212121] dark:text-white">Fabricio Regalado</p>
             <p className="text-[11px] uppercase tracking-[0.18em] text-[#7a7a7a] dark:text-gray-400">Ingeniero en Informatica</p>
           </div>
         </div>

@@ -29,7 +29,7 @@ const Hero = () => {
               className="bg-primary p-8 md:p-12 text-white flex flex-col justify-center"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-white/85">Portafolio Personal</p>
-              <h1 className="mt-4 text-4xl md:text-6xl font-bold leading-tight">Oscar Fabricio Regalado Pérez</h1>
+              <h1 className="mt-4 text-4xl md:text-6xl font-bold leading-tight">Fabricio Regalado </h1>
               <p className="mt-5 text-lg md:text-xl font-medium">Ingeniero en Informática</p>
               <p className="mt-4 text-sm md:text-base text-white/90 max-w-lg leading-relaxed">
                 Ingeniero en Informática y Desarrollador Web. Creo experiencias digitales modernas, funcionales con
