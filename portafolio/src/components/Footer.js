@@ -137,13 +137,23 @@ const Footer = () => {
     <footer id="contacto" className="section-dark py-20 border-t border-[#3b3647]">
       <div className="section-shell">
         <h2 className="text-3xl md:text-4xl font-bold text-center">Contacto</h2>
-        <p className="mt-3 text-center text-gray-300">Tienes un proyecto en mente? Escribeme y conversemos.</p>
+        <p className="mt-3 text-center text-gray-300 max-w-2xl mx-auto">
+          Tienes un proyecto en mente? Escribeme y conversemos.
+        </p>
 
         <div className="mt-10 grid lg:grid-cols-2 gap-6">
           <div className="bg-[#2e2a38] border border-[#3b3647] rounded-card p-6">
             <h3 className="text-xl font-semibold text-white">Informacion</h3>
+            <div className="mt-4 w-24 h-24 rounded-xl border border-[#5a536b] bg-[#262232] p-2 grid place-items-center">
+              <img
+                src={`${process.env.PUBLIC_URL}/LOGO2026.png`}
+                alt="Logo personal"
+                className="w-full h-full object-contain rounded-xl"
+                loading="lazy"
+              />
+            </div>
             <p className="mt-4 text-sm text-gray-300">Oscar Fabricio Regalado Perez</p>
-            <a href="mailto:oscarfabricio55@gmail.com" className="mt-2 block text-sm text-primary hover:text-primary-light">
+            <a href="mailto:oscarfabricio55@gmail.com" className="mt-1 block text-sm text-primary hover:text-primary-light">
               oscarfabricio55@gmail.com
             </a>
             <div className="mt-5 flex gap-3 text-gray-200">
@@ -184,7 +194,15 @@ const Footer = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} noValidate className="bg-[#2e2a38] border border-[#3b3647] rounded-card p-6 grid gap-3">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="bg-[#2e2a38] border border-[#3b3647] rounded-card p-6 grid gap-3"
+          >
+            <div className="mb-1">
+              <h3 className="text-xl font-semibold text-white">Enviame un mensaje</h3>
+              <p className="text-sm text-gray-400 mt-1">Te abrire tu cliente de correo con el mensaje listo.</p>
+            </div>
             <input
               type="text"
               name="nombre"
@@ -221,7 +239,7 @@ const Footer = () => {
             <button
               type="submit"
               disabled={sending}
-              className="mt-1 h-11 rounded-lg bg-primary text-white font-semibold hover:bg-primary-light transition disabled:opacity-60 disabled:cursor-not-allowed"
+              className="mt-2 h-11 rounded-lg bg-primary text-white font-semibold hover:bg-primary-light transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {sending ? 'Enviando...' : 'Enviar mensaje'}
             </button>
