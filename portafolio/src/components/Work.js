@@ -7,7 +7,7 @@ const workExperience = [
     position: 'Analista TI',
     description:
       'Responsable de analisis, implementacion de soluciones tecnologicas. Soporte tecnico especializado en sistemas financieros, gestion de bases de datos y aseguramiento de calidad.',
-    period: 'Actualidad',
+    period: 'MAYO 2025 - Actualidad',
     skills: ['MySQL', 'Bash', 'Soporte Tecnico', 'Reporteria'],
     responsibilities: [
       'Mantenimiento de aplicaciones financieras',
