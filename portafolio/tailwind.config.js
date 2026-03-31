@@ -1,30 +1,28 @@
 module.exports = {
   darkMode: 'class',
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#F59E0B',
-          light: '#FCD34D',
-          dark: '#D97706'
+          DEFAULT: '#EA6D73',
+          light: '#F4878C',
+          dark: '#D85C62',
         },
-        secondary: '#1f2937',
-        accent: '#10b981',
-        success: '#059669',
-        warning: '#f59e0b',
-        muted: '#6b7280',
-        border: '#e5e7eb'
+        secondary: '#0F172A',
+        surface: '#25222D',
+        panel: '#FFFFFF',
+        muted: '#6B7280',
       },
       fontFamily: {
-        sans: ['system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        card: '14px',
       },
       boxShadow: {
-        sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
-        md: '0 4px 6px rgba(0, 0, 0, 0.07)',
-        lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
-        xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
-      }
+        soft: '0 10px 28px rgba(15, 23, 42, 0.15)',
+      },
     },
   },
   plugins: [],

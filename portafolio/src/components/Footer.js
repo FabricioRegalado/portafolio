@@ -1,110 +1,236 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload } from "react-icons/fa";
+import React, { useState } from 'react';
+import { sileo } from 'sileo';
+import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    mensaje: '',
+  });
+  const [sending, setSending] = useState(false);
+  const [touched, setTouched] = useState({
+    nombre: false,
+    email: false,
+    mensaje: false,
+  });
+  const [errors, setErrors] = useState({
+    nombre: '',
+    email: '',
+    mensaje: '',
+  });
+
+  const validateField = (name, value) => {
+    const clean = value.trim();
+
+    if (name === 'nombre') {
+      if (!clean) return 'El nombre es obligatorio.';
+      if (clean.length < 2) return 'El nombre es muy corto.';
+      return '';
+    }
+
+    if (name === 'email') {
+      if (!clean) return 'El correo es obligatorio.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return 'Ingresa un correo valido.';
+      return '';
+    }
+
+    if (name === 'mensaje') {
+      if (!clean) return 'El mensaje es obligatorio.';
+      if (clean.length < 10) return 'El mensaje debe tener al menos 10 caracteres.';
+      return '';
+    }
+
+    return '';
+  };
+
+  const validateForm = (data) => ({
+    nombre: validateField('nombre', data.nombre),
+    email: validateField('email', data.email),
+    mensaje: validateField('mensaje', data.mensaje),
+  });
+
+  const getInputStateClass = (name) => {
+    if (!touched[name]) return 'border-[#4b4560] focus:border-primary';
+    if (errors[name]) return 'border-red-400 focus:border-red-400 bg-red-500/10';
+    return 'border-emerald-400 focus:border-emerald-400 bg-emerald-500/10';
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      const next = { ...prev, [name]: value };
+      if (touched[name]) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: validateField(name, value),
+        }));
+      }
+      return next;
+    });
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const fieldError = validateField(name, value);
+
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrors((prev) => ({ ...prev, [name]: fieldError }));
+
+    if (fieldError) {
+      sileo.warning({
+        title: 'Campo por corregir',
+        description: fieldError,
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const trimmed = {
+      nombre: formData.nombre.trim(),
+      email: formData.email.trim(),
+      mensaje: formData.mensaje.trim(),
+    };
+    const nextErrors = validateForm(trimmed);
+    const firstError = Object.values(nextErrors).find(Boolean);
+
+    setTouched({ nombre: true, email: true, mensaje: true });
+    setErrors(nextErrors);
+
+    if (firstError) {
+      sileo.warning({
+        title: 'Formulario incompleto',
+        description: firstError,
+      });
+      return;
+    }
+
+    setSending(true);
+    const subject = encodeURIComponent(`Nuevo mensaje de ${trimmed.nombre}`);
+    const body = encodeURIComponent(
+      `Nombre: ${trimmed.nombre}\nEmail: ${trimmed.email}\n\nMensaje:\n${trimmed.mensaje}`
+    );
+
+    const openMailClient = new Promise((resolve, reject) => {
+      try {
+        window.location.href = `mailto:oscarfabricio55@gmail.com?subject=${subject}&body=${body}`;
+        setTimeout(resolve, 300);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    sileo
+      .promise(openMailClient, {
+        loading: { title: 'Preparando envio...' },
+        success: {
+          title: 'Correo listo',
+          description: 'Confirma el envio en tu cliente de correo.',
+        },
+        error: { title: 'No se pudo abrir el correo' },
+      })
+      .finally(() => setSending(false));
+  };
+
   return (
-    <footer
-      id="contacto"
-      className="relative bg-secondary dark:bg-gray-950 text-white py-20 scroll-mt-16 overflow-hidden"
-    >
-      {/* Decoración de fondo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-      </div>
+    <footer id="contacto" className="section-dark py-20 border-t border-[#3b3647]">
+      <div className="section-shell">
+        <h2 className="text-3xl md:text-4xl font-bold text-center">Contacto</h2>
+        <p className="mt-3 text-center text-gray-300">Tienes un proyecto en mente? Escribeme y conversemos.</p>
 
-      <div className="container mx-auto px-6 lg:px-8 text-center space-y-12 relative z-10">
-        {/* Sección Información */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Oscar Fabricio Regalado Pérez
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300">
-            Transformando ideas en aplicaciones funcionales y modernas.
-          </p>
-        </motion.div>
+        <div className="mt-10 grid lg:grid-cols-2 gap-6">
+          <div className="bg-[#2e2a38] border border-[#3b3647] rounded-card p-6">
+            <h3 className="text-xl font-semibold text-white">Informacion</h3>
+            <p className="mt-4 text-sm text-gray-300">Oscar Fabricio Regalado Perez</p>
+            <a href="mailto:oscarfabricio55@gmail.com" className="mt-2 block text-sm text-primary hover:text-primary-light">
+              oscarfabricio55@gmail.com
+            </a>
+            <div className="mt-5 flex gap-3 text-gray-200">
+              <a
+                href="https://github.com/FabricioRegalado"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="h-10 w-10 rounded-xl border border-[#5a536b] grid place-items-center hover:border-primary hover:text-primary transition"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="https://www.instagram.com/fabricio_ouo/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="h-10 w-10 rounded-xl border border-[#5a536b] grid place-items-center hover:border-primary hover:text-primary transition"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/oscar-fabricio-regalado-p%C3%A9rez-90181b225/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="h-10 w-10 rounded-xl border border-[#5a536b] grid place-items-center hover:border-primary hover:text-primary transition"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="mailto:oscarfabricio55@gmail.com"
+                aria-label="Correo"
+                className="h-10 w-10 rounded-xl border border-[#5a536b] grid place-items-center hover:border-primary hover:text-primary transition"
+              >
+                <FaEnvelope />
+              </a>
+            </div>
+          </div>
 
-        {/* Redes Sociales */}
-        <motion.div
-          className="flex justify-center gap-8 text-3xl"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {[
-            {
-              icon: <FaGithub />,
-              link: "https://github.com/FabricioRegalado",
-              label: "GitHub",
-            },
-            {
-              icon: <FaLinkedin />,
-              link: "https://www.linkedin.com/in/oscar-fabricio-regalado-p%C3%A9rez-90181b225/",
-              label: "LinkedIn",
-            },
-            { icon: <FaEnvelope />, link: "mailto:oscarfabricio55@gmail.com", label: "Correo" },
-          ].map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.3, rotate: 10, y: -8 }}
-              className="text-gray-300 hover:text-primary transition-colors duration-300 relative group"
-              aria-label={social.label}
+          <form onSubmit={handleSubmit} noValidate className="bg-[#2e2a38] border border-[#3b3647] rounded-card p-6 grid gap-3">
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Tu nombre"
+              value={formData.nombre}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full h-11 px-3 rounded-lg bg-[#262232] border text-sm text-white placeholder:text-gray-400 focus:outline-none transition ${getInputStateClass(
+                'nombre'
+              )}`}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Tu email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full h-11 px-3 rounded-lg bg-[#262232] border text-sm text-white placeholder:text-gray-400 focus:outline-none transition ${getInputStateClass(
+                'email'
+              )}`}
+            />
+            <textarea
+              rows="4"
+              name="mensaje"
+              placeholder="Tu mensaje"
+              value={formData.mensaje}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full px-3 py-2 rounded-lg bg-[#262232] border text-sm text-white placeholder:text-gray-400 focus:outline-none transition ${getInputStateClass(
+                'mensaje'
+              )}`}
+            />
+            <button
+              type="submit"
+              disabled={sending}
+              className="mt-1 h-11 rounded-lg bg-primary text-white font-semibold hover:bg-primary-light transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-              {social.icon}
-            </motion.a>
-          ))}
-        </motion.div>
+              {sending ? 'Enviando...' : 'Enviar mensaje'}
+            </button>
+          </form>
+        </div>
 
-        {/* Botones de Acción */}
-        <motion.div
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-8"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <motion.a
-            href="mailto:oscarfabricio55@gmail.com"
-            whileHover={{ scale: 1.08 }}
-            className="flex items-center bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-dark shadow-lg hover:shadow-2xl transition-all"
-          >
-            <FaEnvelope className="mr-2" />
-            Contáctame
-          </motion.a>
-          <motion.a
-            href="./cv.pdf"
-            download
-            whileHover={{ scale: 1.08 }}
-            className="flex items-center border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-white px-8 py-4 rounded-lg font-semibold transition-all"
-          >
-            <FaFileDownload className="mr-2" />
-            Descargar CV
-          </motion.a>
-        </motion.div>
-
-        {/* Copyright */}
-        <motion.div
-          className="text-sm text-gray-400 pt-8 border-t border-gray-700"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <p>
-            © {new Date().getFullYear()} Oscar Fabricio Regalado Pérez. Todos los derechos reservados.
-          </p>
-        </motion.div>
+        <p className="mt-10 text-center text-xs text-gray-400">
+          (c) {new Date().getFullYear()} Oscar Fabricio Regalado Perez. Todos los derechos reservados.
+        </p>
       </div>
     </footer>
   );

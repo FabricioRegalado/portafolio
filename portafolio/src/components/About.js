@@ -1,133 +1,93 @@
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaReact,
-  FaPython,
-  FaJava,
-  FaJsSquare,
-  FaCogs,
-  FaUsers,
-  FaComment,
-  FaLightbulb,
-  FaUserFriends,
-  FaBrain,
-  FaGitSquare,
-  FaAndroid
-} from "react-icons/fa";
-import { SiDart, SiFlutter, SiMysql } from "react-icons/si";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
 
-// Datos unificados con habilidades blandas
-const allSkills = [
-  // Técnicas
-  { name: "C#", icon: <FaCogs className="text-primary dark:text-primary-dark" /> },
-  { name: "Java", icon: <FaJava className="text-primary dark:text-primary-dark" /> },
-  { name: "SQL", icon: <SiMysql className="text-primary dark:text-primary-dark" /> },
-  { name: "Python", icon: <FaPython className="text-primary dark:text-primary-dark" /> },
-  { name: "JavaScript", icon: <FaJsSquare className="text-primary dark:text-primary-dark" /> },
-  { name: "Dart", icon: <SiDart className="text-primary dark:text-primary-dark" /> },
-  { name: "HTML", icon: <FaHtml5 className="text-primary dark:text-primary-dark" /> },
-  { name: "CSS", icon: <FaCss3Alt className="text-primary dark:text-primary-dark" /> },
-  { name: "Flutter", icon: <SiFlutter className="text-primary dark:text-primary-dark" /> },
-  { name: "React", icon: <FaReact className="text-primary dark:text-primary-dark" /> },
-  { name: "Git", icon: <FaGitSquare className="text-primary dark:text-primary-dark" /> },
-  { name: "Kotlin", icon: <FaAndroid className="text-primary dark:text-primary-dark" /> },
-  
-  // Habilidades blandas
-  { name: "Trabajo en equipo", icon: <FaUsers className="text-primary dark:text-primary-dark" /> },
-  { name: "Comunicación", icon: <FaComment className="text-primary dark:text-primary-dark" /> },
-  { name: "Resolución de problemas", icon: <FaLightbulb className="text-primary dark:text-primary-dark" /> },
-  { name: "Liderazgo", icon: <FaUserFriends className="text-primary dark:text-primary-dark" /> },
-  { name: "Pensamiento crítico", icon: <FaBrain className="text-primary dark:text-primary-dark" /> },
+const details = [
+  { label: 'Nombre', value: 'Oscar Fabricio Regalado Perez' },
+  { label: 'Perfil', value: 'Ingeniero en Informatica' },
+  { label: 'Email', value: 'oscarfabricio55@gmail.com' },
+  { label: 'GitHub', value: 'github.com/FabricioRegalado' },
 ];
-
-// Animaciones
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      type: "spring", 
-      stiffness: 80,
-      damping: 15
-    } 
-  },
-};
-
-const SkillCard = ({ skill }) => {
-  return (
-    <motion.div
-      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/40 transition-all duration-300 shadow-md hover:shadow-xl flex flex-col items-center justify-center text-center h-full cursor-default"
-      variants={cardVariants}
-      whileHover={{ scale: 1.12, y: -8 }}
-    >
-      <motion.div
-        className="relative mb-4"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 0.5 }}
-      >
-        <motion.div 
-          className="text-5xl mb-3 p-4 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl transition-all duration-300 group-hover:from-primary/30 group-hover:to-primary/20"
-          whileHover={{ rotate: 12, scale: 1.1 }}
-        >
-          {skill.icon}
-        </motion.div>
-      </motion.div>
-      <h4 className="text-sm md:text-base font-bold text-secondary dark:text-white group-hover:text-primary transition-colors">
-        {skill.name}
-      </h4>
-    </motion.div>
-  );
-};
 
 const About = () => {
   return (
-    <motion.section
-      id="habilidades"
-      className="py-24 px-6 scroll-mt-16 bg-gray-50 dark:bg-gray-900"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="container mx-auto max-w-7xl">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+    <section id="sobre-mi" className="py-20 md:py-24">
+      <div className="section-shell">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45 }}
+          className="section-title"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-secondary dark:text-white mb-4">
-            Habilidades y
-            <span className="text-primary"> Competencias</span>
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Conjunto de habilidades técnicas y competencias profesionales que desarrollo y perfecciono continuamente.
-          </p>
-        </motion.div>
+          Sobre Mi
+        </motion.h2>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            visible: { 
-              transition: { 
-                staggerChildren: 0.08, 
-                delayChildren: 0.2 
-              } 
-            }
-          }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-10 panel-card p-6 md:p-10"
         >
-          {allSkills.map((skill, i) => (
-            <SkillCard key={i} skill={skill} />
-          ))}
+          <div className="grid md:grid-cols-[220px_1fr] gap-8 items-start">
+            <div className="mx-auto md:mx-0 w-[190px] h-[190px] rounded-full border-4 border-primary overflow-hidden">
+              <img
+                src={`${process.env.PUBLIC_URL}/images/hero-image.jpg`}
+                alt="Retrato de Fabricio"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div>
+              <p className="text-muted dark:text-gray-300 leading-relaxed">
+                Ingeniero en Informatica y Desarrollador Web. Creo experiencias digitales modernas, funcionales con
+                atencion al detalle.
+              </p>
+
+              <div className="mt-6 grid sm:grid-cols-2 gap-4">
+                {details.map((item) => (
+                  <div key={item.label} className="rounded-xl border border-[#e8e8e8] dark:border-[#343e52] p-4">
+                    <p className="text-xs uppercase tracking-wide text-muted dark:text-gray-400">{item.label}</p>
+                    <p className="mt-1 text-sm md:text-base text-[#1f1f1f] dark:text-gray-100 font-medium break-words">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex gap-3">
+                <a
+                  href="mailto:oscarfabricio55@gmail.com"
+                  className="h-10 w-10 rounded-xl border border-[#e2e2e2] dark:border-[#39445a] grid place-items-center text-[#444] dark:text-gray-200 hover:text-primary hover:border-primary transition"
+                  aria-label="Email"
+                >
+                  <FaEnvelope />
+                </a>
+                <a
+                  href="https://github.com/FabricioRegalado"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="h-10 w-10 rounded-xl border border-[#e2e2e2] dark:border-[#39445a] grid place-items-center text-[#444] dark:text-gray-200 hover:text-primary hover:border-primary transition"
+                  aria-label="GitHub"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/oscar-fabricio-regalado-p%C3%A9rez-90181b225/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="h-10 w-10 rounded-xl border border-[#e2e2e2] dark:border-[#39445a] grid place-items-center text-[#444] dark:text-gray-200 hover:text-primary hover:border-primary transition"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin />
+                </a>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
