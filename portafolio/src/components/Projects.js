@@ -83,11 +83,95 @@ const projects = [
     demo: 'https://fabricioregalado.github.io/reposteria-garcias/',
     repo: '#',
   },
+  {
+    title: "Identificador interno de personas relacionadas",
+    description:
+      "Aplicación (SPA) para identificar personas relacionadas internamente mediante un sistema de búsqueda y visualización de resultados.",
+    technologies: ['Vite', 'React', 'Tailwind CSS'],
+    image: `${process.env.PUBLIC_URL}/images/MOCKRELACIONADAS.png`,
+    demo: '#',
+    repo: '#',
+  },
 ];
 
 const isValidUrl = (url) => typeof url === 'string' && url.trim() !== '' && url !== '#';
 
+const ProjectActions = ({ project }) => {
+  const hasDemo = isValidUrl(project.demo);
+  const hasRepo = isValidUrl(project.repo);
+
+  if (!hasDemo && !hasRepo) return null;
+
+  return (
+    <div className="mt-auto pt-5 flex flex-wrap gap-2">
+      {hasDemo && (
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-primary text-white hover:bg-primary-light transition"
+        >
+          <FaExternalLinkAlt />
+          Demo
+        </a>
+      )}
+      {hasRepo && (
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-lg border border-[#5a536b] text-gray-100 hover:border-primary transition"
+        >
+          <FaGithub />
+          GitHub
+        </a>
+      )}
+    </div>
+  );
+};
+
+const ProjectCard = ({ project, index, featured = false }) => (
+  <motion.article
+    initial={{ opacity: 0, y: 18 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-60px' }}
+    transition={{ duration: 0.45, delay: index * 0.04 }}
+    className={`group bg-[#2e2a38] border rounded-card overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300 ${
+      featured ? 'border-primary/40' : 'border-[#3b3647]'
+    }`}
+  >
+    <div className={`overflow-hidden ${featured ? 'h-56 md:h-64' : 'h-44'}`}>
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        loading="lazy"
+      />
+    </div>
+
+    <div className={`flex flex-col flex-1 ${featured ? 'p-6' : 'p-5'}`}>
+      <h3 className={`${featured ? 'text-xl md:text-2xl' : 'text-lg'} font-semibold text-white`}>{project.title}</h3>
+      <p className={`mt-2 text-sm text-gray-300 leading-relaxed ${featured ? '' : 'line-clamp-3'}`}>
+        {project.description}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.technologies.map((tech) => (
+          <span key={`${project.title}-${tech}`} className="px-2.5 py-1 rounded-full text-xs bg-[#3a3548] text-gray-200">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <ProjectActions project={project} />
+    </div>
+  </motion.article>
+);
+
 const Projects = () => {
+  const featuredProjects = projects.filter((project) => isValidUrl(project.demo) || isValidUrl(project.repo)).slice(0, 2);
+  const regularProjects = projects.filter((project) => !featuredProjects.includes(project));
+
   return (
     <section id="proyectos" className="section-dark py-20 md:py-24">
       <div className="section-shell">
@@ -96,58 +180,15 @@ const Projects = () => {
           Proyectos reales desarrollados con enfoque funcional, visual y técnico.
         </p>
 
-        <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.02 }}
-              className="bg-[#2e2a38] border border-[#3b3647] rounded-card overflow-hidden hover:-translate-y-1 transition"
-            >
-              <img src={project.image} alt={project.title} className="w-full h-44 object-cover" loading="lazy" />
+        <div className="mt-12 grid md:grid-cols-2 gap-6">
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} featured />
+          ))}
+        </div>
 
-              <div className="p-5">
-                <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                <p className="mt-2 text-sm text-gray-300 leading-relaxed line-clamp-3">{project.description}</p>
-
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <span key={`${project.title}-${tech}`} className="px-2.5 py-1 rounded-full text-xs bg-[#3a3548] text-gray-200">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {(isValidUrl(project.demo) || isValidUrl(project.repo)) && (
-                  <div className="mt-4 flex gap-2">
-                    {isValidUrl(project.demo) && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-primary text-white hover:bg-primary-light transition"
-                      >
-                        <FaExternalLinkAlt />
-                        Demo
-                      </a>
-                    )}
-                    {isValidUrl(project.repo) && (
-                      <a
-                        href={project.repo}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-lg border border-[#5a536b] text-gray-100 hover:border-primary transition"
-                      >
-                        <FaGithub />
-                        GitHub
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </motion.article>
+        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {regularProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
       </div>
