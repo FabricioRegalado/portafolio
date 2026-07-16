@@ -136,14 +136,6 @@ portafolio/
 - Email: oscarfabricio55@gmail.com
 - Instagram: [@fabricio_ouo](https://www.instagram.com/fabricio_ouo/)
 
-## Estadísticas del Proyecto
-
-- **Tamaño del Build**: 139.95 kB (gzipped)
-- **CSS Optimizado**: 7.73 kB (gzipped)
-- **Componentes Funcionales**: 7
-- **Proyectos Showcaseados**: 7
-- **Animaciones**: 20+
-
 
 ## Licencia
 

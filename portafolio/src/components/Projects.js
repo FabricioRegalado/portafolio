@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub, FaSearchPlus, FaTimes } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaExternalLinkAlt, FaGithub, FaSearchPlus, FaTimes } from 'react-icons/fa';
 
 const projects = [
   {
@@ -92,9 +92,28 @@ const projects = [
     demo: '#',
     repo: '#',
   },
+  {
+    title: "Plataforma interna de evaluación de areas",
+    description:
+      "Aplicación web para evaluar internamente las áreas de la empresa mediante un sistema de cuestionarios y reportes de resultados.",
+    technologies: ['Vite', 'React', 'Tailwind CSS'],
+    image: [
+      `${process.env.PUBLIC_URL}/images/MOCKEVLUACION1.png`,
+      `${process.env.PUBLIC_URL}/images/MOCKEVLUACION2.png`,
+      `${process.env.PUBLIC_URL}/images/MOCKEVLUACION3.png`,
+      `${process.env.PUBLIC_URL}/images/MOCKEVLUACION4.png`,
+    ],
+    demo: '#',
+    repo: '#',
+  },
 ];
 
 const isValidUrl = (url) => typeof url === 'string' && url.trim() !== '' && url !== '#';
+
+const getProjectImages = (project) => {
+  const source = project.images || project.image;
+  return Array.isArray(source) ? source : [source];
+};
 
 const ProjectActions = ({ project }) => {
   const hasDemo = isValidUrl(project.demo);
@@ -130,65 +149,133 @@ const ProjectActions = ({ project }) => {
   );
 };
 
-const ProjectCard = ({ project, index, featured = false, onImageClick }) => (
-  <motion.article
-    initial={{ opacity: 0, y: 18 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-60px' }}
-    transition={{ duration: 0.45, delay: index * 0.04 }}
-    className={`group bg-[#2e2a38] border rounded-card overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300 ${
-      featured ? 'border-primary/40' : 'border-[#3b3647]'
-    }`}
-  >
-    <button
-      type="button"
-      onClick={() => onImageClick(project)}
-      aria-label={`Ampliar imagen de ${project.title}`}
-      className={`relative overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
-        featured ? 'h-56 md:h-64' : 'h-44'
+const ProjectCard = ({ project, index, featured = false, onImageClick }) => {
+  const images = getProjectImages(project);
+  const [currentImage, setCurrentImage] = useState(0);
+  const hasMultipleImages = images.length > 1;
+
+  const changeImage = (direction) => {
+    setCurrentImage((current) => (current + direction + images.length) % images.length);
+  };
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.45, delay: index * 0.04 }}
+      className={`group bg-[#2e2a38] border rounded-card overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300 ${
+        featured ? 'border-primary/40' : 'border-[#3b3647]'
       }`}
     >
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        loading="lazy"
-      />
-      <span className="absolute right-3 bottom-3 h-9 w-9 rounded-full bg-[#2e2a38]/90 border border-[#5a536b] text-white grid place-items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-        <FaSearchPlus className="text-sm" />
-      </span>
-    </button>
-
-    <div className={`flex flex-col flex-1 ${featured ? 'p-6' : 'p-5'}`}>
-      <h3 className={`${featured ? 'text-xl md:text-2xl' : 'text-lg'} font-semibold text-white`}>{project.title}</h3>
-      <p className={`mt-2 text-sm text-gray-300 leading-relaxed ${featured ? '' : 'line-clamp-3'}`}>
-        {project.description}
-      </p>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        {project.technologies.map((tech) => (
-          <span key={`${project.title}-${tech}`} className="px-2.5 py-1 rounded-full text-xs bg-[#3a3548] text-gray-200">
-            {tech}
+      <div className={`relative overflow-hidden ${featured ? 'h-56 md:h-64' : 'h-44'}`}>
+        <button
+          type="button"
+          onClick={() => onImageClick(project, currentImage)}
+          aria-label={`Ampliar imagen ${currentImage + 1} de ${project.title}`}
+          className="absolute inset-0 w-full h-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
+        >
+          <img
+            key={images[currentImage]}
+            src={images[currentImage]}
+            alt={`${project.title} - imagen ${currentImage + 1}`}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+          <span className="absolute right-3 bottom-3 h-9 w-9 rounded-full bg-[#2e2a38]/90 border border-[#5a536b] text-white grid place-items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+            <FaSearchPlus className="text-sm" />
           </span>
-        ))}
+        </button>
+
+        {hasMultipleImages && (
+          <>
+            <button
+              type="button"
+              onClick={() => changeImage(-1)}
+              aria-label="Imagen anterior"
+              className="absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-[#2e2a38]/90 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
+            >
+              <FaChevronLeft className="text-xs" />
+            </button>
+            <button
+              type="button"
+              onClick={() => changeImage(1)}
+              aria-label="Imagen siguiente"
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-[#2e2a38]/90 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
+            >
+              <FaChevronRight className="text-xs" />
+            </button>
+            <div className="absolute left-1/2 bottom-3 -translate-x-1/2 flex gap-1.5">
+              {images.map((image, imageIndex) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setCurrentImage(imageIndex)}
+                  aria-label={`Mostrar imagen ${imageIndex + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    currentImage === imageIndex ? 'w-5 bg-primary' : 'w-1.5 bg-white/70'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
-      <ProjectActions project={project} />
-    </div>
-  </motion.article>
-);
+      <div className={`flex flex-col flex-1 ${featured ? 'p-6' : 'p-5'}`}>
+        <h3 className={`${featured ? 'text-xl md:text-2xl' : 'text-lg'} font-semibold text-white`}>{project.title}</h3>
+        <p className={`mt-2 text-sm text-gray-300 leading-relaxed ${featured ? '' : 'line-clamp-3'}`}>
+          {project.description}
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span key={`${project.title}-${tech}`} className="px-2.5 py-1 rounded-full text-xs bg-[#3a3548] text-gray-200">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <ProjectActions project={project} />
+      </div>
+    </motion.article>
+  );
+};
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const featuredProjects = projects.filter((project) => isValidUrl(project.demo) || isValidUrl(project.repo)).slice(0, 2);
   const regularProjects = projects.filter((project) => !featuredProjects.includes(project));
+  const selectedImages = selectedProject ? getProjectImages(selectedProject) : [];
+
+  const openLightbox = (project, imageIndex = 0) => {
+    setSelectedProject(project);
+    setSelectedImageIndex(imageIndex);
+  };
+
+  const closeLightbox = () => {
+    setSelectedProject(null);
+    setSelectedImageIndex(0);
+  };
+
+  const changeLightboxImage = (direction) => {
+    setSelectedImageIndex((current) => (current + direction + selectedImages.length) % selectedImages.length);
+  };
 
   useEffect(() => {
     if (!selectedProject) return undefined;
 
     const previousOverflow = document.body.style.overflow;
+    const imageCount = getProjectImages(selectedProject).length;
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') setSelectedProject(null);
+      if (event.key === 'ArrowLeft' && imageCount > 1) {
+        setSelectedImageIndex((current) => (current - 1 + imageCount) % imageCount);
+      }
+      if (event.key === 'ArrowRight' && imageCount > 1) {
+        setSelectedImageIndex((current) => (current + 1) % imageCount);
+      }
     };
 
     document.body.style.overflow = 'hidden';
@@ -215,14 +302,14 @@ const Projects = () => {
               project={project}
               index={index}
               featured
-              onImageClick={setSelectedProject}
+              onImageClick={openLightbox}
             />
           ))}
         </div>
 
         <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-5">
           {regularProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} onImageClick={setSelectedProject} />
+            <ProjectCard key={project.title} project={project} index={index} onImageClick={openLightbox} />
           ))}
         </div>
       </div>
@@ -234,7 +321,7 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
+            onClick={closeLightbox}
             role="dialog"
             aria-modal="true"
             aria-label={`Vista ampliada de ${selectedProject.title}`}
@@ -249,7 +336,7 @@ const Projects = () => {
             >
               <button
                 type="button"
-                onClick={() => setSelectedProject(null)}
+                onClick={closeLightbox}
                 autoFocus
                 aria-label="Cerrar imagen ampliada"
                 className="absolute top-3 right-3 z-10 h-10 w-10 rounded-full bg-[#2e2a38]/95 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
@@ -257,14 +344,43 @@ const Projects = () => {
                 <FaTimes />
               </button>
 
-              <div className="max-h-[78vh] bg-[#211e29] flex items-center justify-center">
+              <div className="relative max-h-[78vh] bg-[#211e29] flex items-center justify-center">
                 <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
+                  key={selectedImages[selectedImageIndex]}
+                  src={selectedImages[selectedImageIndex]}
+                  alt={`${selectedProject.title} - imagen ${selectedImageIndex + 1}`}
                   className="max-w-full max-h-[78vh] object-contain"
                 />
+
+                {selectedImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => changeLightboxImage(-1)}
+                      aria-label="Imagen anterior"
+                      className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-[#2e2a38]/95 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => changeLightboxImage(1)}
+                      aria-label="Imagen siguiente"
+                      className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-[#2e2a38]/95 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </>
+                )}
               </div>
-              <p className="px-5 py-4 text-sm md:text-base text-white font-medium">{selectedProject.title}</p>
+              <div className="px-5 py-4 flex items-center justify-between gap-4">
+                <p className="text-sm md:text-base text-white font-medium">{selectedProject.title}</p>
+                {selectedImages.length > 1 && (
+                  <span className="text-xs text-gray-300 shrink-0">
+                    {selectedImageIndex + 1} / {selectedImages.length}
+                  </span>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
