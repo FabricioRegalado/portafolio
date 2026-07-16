@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaExternalLinkAlt, FaGithub, FaSearchPlus, FaTimes } from 'react-icons/fa';
 
 const projects = [
   {
@@ -130,7 +130,7 @@ const ProjectActions = ({ project }) => {
   );
 };
 
-const ProjectCard = ({ project, index, featured = false }) => (
+const ProjectCard = ({ project, index, featured = false, onImageClick }) => (
   <motion.article
     initial={{ opacity: 0, y: 18 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -140,14 +140,24 @@ const ProjectCard = ({ project, index, featured = false }) => (
       featured ? 'border-primary/40' : 'border-[#3b3647]'
     }`}
   >
-    <div className={`overflow-hidden ${featured ? 'h-56 md:h-64' : 'h-44'}`}>
+    <button
+      type="button"
+      onClick={() => onImageClick(project)}
+      aria-label={`Ampliar imagen de ${project.title}`}
+      className={`relative overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
+        featured ? 'h-56 md:h-64' : 'h-44'
+      }`}
+    >
       <img
         src={project.image}
         alt={project.title}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         loading="lazy"
       />
-    </div>
+      <span className="absolute right-3 bottom-3 h-9 w-9 rounded-full bg-[#2e2a38]/90 border border-[#5a536b] text-white grid place-items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+        <FaSearchPlus className="text-sm" />
+      </span>
+    </button>
 
     <div className={`flex flex-col flex-1 ${featured ? 'p-6' : 'p-5'}`}>
       <h3 className={`${featured ? 'text-xl md:text-2xl' : 'text-lg'} font-semibold text-white`}>{project.title}</h3>
@@ -169,8 +179,26 @@ const ProjectCard = ({ project, index, featured = false }) => (
 );
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
   const featuredProjects = projects.filter((project) => isValidUrl(project.demo) || isValidUrl(project.repo)).slice(0, 2);
   const regularProjects = projects.filter((project) => !featuredProjects.includes(project));
+
+  useEffect(() => {
+    if (!selectedProject) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProject]);
 
   return (
     <section id="proyectos" className="section-dark py-20 md:py-24">
@@ -182,16 +210,65 @@ const Projects = () => {
 
         <div className="mt-12 grid md:grid-cols-2 gap-6">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} featured />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              featured
+              onImageClick={setSelectedProject}
+            />
           ))}
         </div>
 
         <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-5">
           {regularProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <ProjectCard key={project.title} project={project} index={index} onImageClick={setSelectedProject} />
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-black/80 p-4 md:p-8 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Vista ampliada de ${selectedProject.title}`}
+          >
+            <motion.div
+              className="relative w-full max-w-6xl max-h-full bg-[#2e2a38] border border-[#5a536b] rounded-card overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ duration: 0.22 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                autoFocus
+                aria-label="Cerrar imagen ampliada"
+                className="absolute top-3 right-3 z-10 h-10 w-10 rounded-full bg-[#2e2a38]/95 border border-[#5a536b] text-white grid place-items-center hover:border-primary transition"
+              >
+                <FaTimes />
+              </button>
+
+              <div className="max-h-[78vh] bg-[#211e29] flex items-center justify-center">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="max-w-full max-h-[78vh] object-contain"
+                />
+              </div>
+              <p className="px-5 py-4 text-sm md:text-base text-white font-medium">{selectedProject.title}</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

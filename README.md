@@ -129,9 +129,8 @@ portafolio/
 - Dark Mode compatible
 - Progressive Web App
 
-## Enlaces Importantes
+## Enlaces 
 
-- Portafolio: [https://fabricioregalado.com](https://fabricioregalado.com)
 - LinkedIn: [linkedin.com/in/oscar-fabricio-regalado](https://www.linkedin.com/in/oscar-fabricio-regalado-p%C3%A9rez-90181b225/)
 - GitHub: [github.com/FabricioRegalado](https://github.com/FabricioRegalado)
 - Email: oscarfabricio55@gmail.com
@@ -145,13 +144,6 @@ portafolio/
 - **Proyectos Showcaseados**: 7
 - **Animaciones**: 20+
 
-## Mejoras Futuras
-
-- Agregar blog de artículos técnicos
-- Integrar formulario de contacto funcional
-- System de certificaciones
-- API REST para datos dinámicos
-- Testing automatizado con Jest y React Testing Library
 
 ## Licencia
 
@@ -161,4 +153,4 @@ Este proyecto está bajo la licencia MIT. Consulta [LICENSE](./LICENSE) para má
 
 **Desarrollado con dedicación por Fabricio Regalado**
 
-*Último actualizado: Marzo 2026*
+*Último actualizado: Julio 2026*
