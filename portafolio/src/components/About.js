@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
+import OptimizedImage from './OptimizedImage';
 
 const details = [
   { label: 'Nombre', value: 'Oscar Fabricio Regalado Perez' },
@@ -11,7 +12,7 @@ const details = [
 
 const About = () => {
   return (
-    <section id="sobre-mi" className="py-20 md:py-24">
+    <section id="sobre-mi" tabIndex={-1} className="py-20 md:py-24">
       <div className="section-shell">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -32,8 +33,10 @@ const About = () => {
         >
           <div className="grid md:grid-cols-[220px_1fr] gap-8 items-start">
             <div className="mx-auto md:mx-0 w-[190px] h-[190px] rounded-full border-4 border-primary overflow-hidden">
-              <img
-                src={`${process.env.PUBLIC_URL}/images/hero-image.jpg`}
+              <OptimizedImage
+                image="hero-image"
+                sizes="190px"
+                loading="lazy"
                 alt="Retrato de Fabricio"
                 className="w-full h-full object-cover"
               />

@@ -4,10 +4,19 @@ import { motion } from 'framer-motion';
 const workExperience = [
   {
     company: 'FITA SERVICIOS FINANCIEROS',
+    position: 'Jefe de TI',
+    description:
+      'Desde el 3 de agosto de 2026 asumo la jefatura del área de TI, dando continuidad a mi trayectoria en FITA Servicios Financieros tras mi etapa como Analista TI.',
+    period: '03 Ago 2026 - Actualidad',
+    skills: [],
+    responsibilities: [],
+  },
+  {
+    company: 'FITA SERVICIOS FINANCIEROS',
     position: 'Analista TI',
     description:
       'Responsable de analisis, implementacion de soluciones tecnologicas. Soporte tecnico especializado en sistemas financieros, gestion de bases de datos y aseguramiento de calidad.',
-    period: 'MAYO 2025 - Actualidad',
+    period: 'Mayo 2025 - 02 Ago 2026',
     skills: ['MySQL', 'Bash', 'Soporte Tecnico', 'Reporteria'],
     responsibilities: [
       'Mantenimiento de aplicaciones financieras',
@@ -35,7 +44,7 @@ const workExperience = [
 
 const Work = () => {
   return (
-    <section id="experiencia" className="py-20 md:py-24">
+    <section id="experiencia" tabIndex={-1} className="py-20 md:py-24">
       <div className="section-shell">
         <h2 className="section-title">Experiencia</h2>
         <p className="section-subtitle">Mi trayectoria en el mundo de la tecnologia.</p>
@@ -45,7 +54,7 @@ const Work = () => {
 
           {workExperience.map((job, index) => (
             <motion.article
-              key={job.company}
+              key={`${job.company}-${job.position}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -58,30 +67,34 @@ const Work = () => {
                 }`}
               />
 
-              <p className="text-xs uppercase tracking-wide text-primary font-semibold">{job.period}</p>
+              <p className="text-xs uppercase tracking-wide text-primary-ink dark:text-primary-light font-semibold">{job.period}</p>
               <h3 className="mt-2 text-2xl font-bold text-[#1f1f1f] dark:text-white">{job.position}</h3>
               <p className="text-sm text-muted dark:text-gray-300 font-medium">{job.company}</p>
               <p className="mt-4 text-sm text-[#4b5563] dark:text-gray-300 leading-relaxed">{job.description}</p>
 
-              <ul className="mt-4 space-y-2 text-sm text-[#374151] dark:text-gray-300">
-                {job.responsibilities.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-primary">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              {job.responsibilities.length > 0 && (
+                <ul className="mt-4 space-y-2 text-sm text-[#374151] dark:text-gray-300">
+                  {job.responsibilities.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="text-primary">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {job.skills.map((skill) => (
-                  <span
-                    key={`${job.company}-${skill}`}
-                    className="px-3 py-1 rounded-full bg-[#f7f7f7] dark:bg-[#252e40] dark:border-[#35425b] border text-xs"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+              {job.skills.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {job.skills.map((skill) => (
+                    <span
+                      key={`${job.company}-${skill}`}
+                      className="px-3 py-1 rounded-full bg-[#f7f7f7] dark:bg-[#252e40] dark:border-[#35425b] border text-xs"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </motion.article>
           ))}
         </div>

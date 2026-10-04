@@ -23,7 +23,7 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="habilidades" className="py-20 md:py-24 bg-[#ededed] dark:bg-[#131826] transition-colors duration-300">
+    <section id="habilidades" tabIndex={-1} className="py-20 md:py-24 bg-[#ededed] dark:bg-[#131826] transition-colors duration-300">
       <div className="section-shell">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -47,7 +47,7 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: index * 0.02 }}
-              className="panel-card px-4 py-3 text-sm font-medium text-[#2d2d2d] dark:text-gray-100 hover:border-primary hover:text-primary transition"
+              className="panel-card px-4 py-3 text-sm font-medium text-[#2d2d2d] dark:text-gray-100 hover:border-primary hover:text-primary-ink dark:hover:text-primary-light transition"
             >
               {skill}
             </motion.div>

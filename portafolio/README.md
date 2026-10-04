@@ -57,7 +57,7 @@ Bienvenido a mi portafolio profesional. Este proyecto showcasea mis habilidades 
 ## Cómo Usar Este Proyecto
 
 ### Requisitos Previos
-- Node.js 16+ instalado
+- Node.js 24 (versión utilizada para verificar el proyecto)
 - npm o yarn como gestor de paquetes
 
 ### Instalación
@@ -89,6 +89,8 @@ npm run build
 # Servir la carpeta /build en producción
 npm run deploy
 ```
+
+Consulta la [guía de imágenes y verificación](./docs/imagenes-y-verificacion.md) para regenerar los recursos optimizados y ejecutar las pruebas del formulario y del navegador.
 
 ## Estructura del Proyecto
 

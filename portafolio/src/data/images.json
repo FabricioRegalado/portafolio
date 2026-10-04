@@ -1,0 +1,252 @@
+{
+  "beFitPunto": [
+    {
+      "src": "images/beFitPunto-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/beFitPunto-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/beFitPunto-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "beFitS0": [
+    {
+      "src": "images/beFitS0-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/beFitS0-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/beFitS0-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "burg0": [
+    {
+      "src": "images/burg0-480.webp",
+      "width": 480,
+      "height": 336
+    },
+    {
+      "src": "images/burg0-960.webp",
+      "width": 960,
+      "height": 672
+    },
+    {
+      "src": "images/burg0-1600.webp",
+      "width": 1600,
+      "height": 1120
+    }
+  ],
+  "CatMok1": [
+    {
+      "src": "images/CatMok1-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/CatMok1-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/CatMok1-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "gym0": [
+    {
+      "src": "images/gym0-480.webp",
+      "width": 480,
+      "height": 336
+    },
+    {
+      "src": "images/gym0-960.webp",
+      "width": 960,
+      "height": 672
+    },
+    {
+      "src": "images/gym0-1600.webp",
+      "width": 1600,
+      "height": 1120
+    }
+  ],
+  "hero-image": [
+    {
+      "src": "images/hero-image-480.webp",
+      "width": 480,
+      "height": 638
+    },
+    {
+      "src": "images/hero-image-963.webp",
+      "width": 963,
+      "height": 1280
+    }
+  ],
+  "MOCKEVLUACION1": [
+    {
+      "src": "images/MOCKEVLUACION1-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MOCKEVLUACION1-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MOCKEVLUACION1-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "MOCKEVLUACION2": [
+    {
+      "src": "images/MOCKEVLUACION2-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MOCKEVLUACION2-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MOCKEVLUACION2-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "MOCKEVLUACION3": [
+    {
+      "src": "images/MOCKEVLUACION3-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MOCKEVLUACION3-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MOCKEVLUACION3-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "MOCKEVLUACION4": [
+    {
+      "src": "images/MOCKEVLUACION4-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MOCKEVLUACION4-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MOCKEVLUACION4-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "MOCKRELACIONADAS": [
+    {
+      "src": "images/MOCKRELACIONADAS-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MOCKRELACIONADAS-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MOCKRELACIONADAS-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "MokReposteria1": [
+    {
+      "src": "images/MokReposteria1-480.webp",
+      "width": 480,
+      "height": 336
+    },
+    {
+      "src": "images/MokReposteria1-960.webp",
+      "width": 960,
+      "height": 672
+    },
+    {
+      "src": "images/MokReposteria1-1600.webp",
+      "width": 1600,
+      "height": 1120
+    }
+  ],
+  "MokTokens1": [
+    {
+      "src": "images/MokTokens1-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/MokTokens1-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/MokTokens1-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "pd0": [
+    {
+      "src": "images/pd0-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/pd0-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/pd0-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ],
+  "san_camilo0": [
+    {
+      "src": "images/san_camilo0-480.webp",
+      "width": 480,
+      "height": 332
+    },
+    {
+      "src": "images/san_camilo0-960.webp",
+      "width": 960,
+      "height": 664
+    },
+    {
+      "src": "images/san_camilo0-1500.webp",
+      "width": 1500,
+      "height": 1038
+    }
+  ]
+}

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-scroll';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaBars, FaTimes, FaFileDownload } from 'react-icons/fa';
 
 const links = [
   { label: 'Inicio', to: 'inicio' },
-  { label: 'Sobre Mi', to: 'sobre-mi' },
+  { label: 'Sobre mí', to: 'sobre-mi' },
   { label: 'Habilidades', to: 'habilidades' },
   { label: 'Experiencia', to: 'experiencia' },
   { label: 'Portafolio', to: 'proyectos' },
@@ -13,8 +12,11 @@ const links = [
 
 const ThemeSwitch = ({ darkMode, onToggle }) => (
   <button
+    type="button"
     onClick={onToggle}
-    aria-label="Cambiar tema"
+    role="switch"
+    aria-checked={darkMode}
+    aria-label="Modo oscuro"
     className={`relative h-7 w-12 rounded-full overflow-hidden shrink-0 transition-colors duration-300 ${
       darkMode ? 'bg-primary' : 'bg-gray-300'
     }`}
@@ -32,6 +34,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -85,23 +88,29 @@ const Navbar = () => {
 
   const getLinkClass = (to) =>
     `text-[12px] uppercase tracking-wide px-3 py-2 rounded-xl transition cursor-pointer ${
-      activeSection === to ? 'bg-primary text-white' : 'text-[#363636] dark:text-gray-200 hover:text-primary'
+      activeSection === to ? 'bg-primary text-secondary' : 'text-[#363636] dark:text-gray-200 hover:text-primary-ink dark:hover:text-primary-light'
     }`;
 
   return (
     <header
+      onKeyDown={(event) => {
+        if (event.key === 'Escape' && open) {
+          setOpen(false);
+          menuButtonRef.current?.focus();
+        }
+      }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/90 dark:bg-[#121723]/90 backdrop-blur border-b border-[#e8e8e8] dark:border-[#2b3447] shadow-sm'
           : 'bg-white/70 dark:bg-[#121723]/70 backdrop-blur'
       }`}
     >
-      <nav className={`section-shell flex items-center justify-between transition-all ${scrolled ? 'h-16' : 'h-[74px]'}`}>
+      <nav aria-label="Navegación principal" className={`section-shell flex items-center justify-between transition-all ${scrolled ? 'h-16' : 'h-[74px]'}`}>
         <div className="flex items-center gap-3">
-          <span className="h-9 w-9 rounded-xl bg-primary text-white grid place-items-center font-bold text-sm">FR</span>
+          <span className="h-9 w-9 rounded-xl bg-primary text-secondary grid place-items-center font-bold text-sm">FR</span>
           <div className="hidden sm:block leading-tight">
             <p className="text-sm font-semibold text-[#212121] dark:text-white">Fabricio Regalado</p>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#7a7a7a] dark:text-gray-400">Ingeniero en Informatica</p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b7280] dark:text-gray-400">Ingeniero en Informática</p>
           </div>
         </div>
 
@@ -109,16 +118,14 @@ const Navbar = () => {
           <ul className="flex items-center gap-1 bg-white dark:bg-[#1b2230] border border-[#ececec] dark:border-[#2f3a50] rounded-2xl px-2 py-1 shadow-sm">
             {links.map((item) => (
               <li key={item.to}>
-                <Link
-                  to={item.to}
-                  duration={700}
-                  smooth="easeInOutCubic"
-                  offset={item.to === 'contacto' ? -8 : -72}
+                <a
+                  href={`#${item.to}`}
+                  aria-current={activeSection === item.to ? 'location' : undefined}
                   onClick={() => setActiveSection(item.to)}
                   className={getLinkClass(item.to)}
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -128,7 +135,7 @@ const Navbar = () => {
             <a
               href="./cv.pdf"
               download
-              className="h-10 px-4 rounded-xl bg-[#1f1f1f] dark:bg-primary text-white text-xs font-semibold uppercase tracking-wide inline-flex items-center gap-2 hover:bg-black dark:hover:bg-primary-dark transition"
+              className="h-10 px-4 rounded-xl bg-[#1f1f1f] dark:bg-primary text-white dark:text-secondary text-xs font-semibold uppercase tracking-wide inline-flex items-center gap-2 hover:bg-black dark:hover:bg-primary-light transition"
             >
               <FaFileDownload className="text-[11px]" />
               CV
@@ -137,8 +144,12 @@ const Navbar = () => {
         </div>
 
         <button
+          ref={menuButtonRef}
+          type="button"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Abrir menu"
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={open}
+          aria-controls="menu-movil"
           className="lg:hidden h-11 w-11 rounded-xl border border-[#d9d9d9] dark:border-[#2f3a50] bg-white dark:bg-[#1b2230] grid place-items-center text-[#333] dark:text-gray-100"
         >
           {open ? <FaTimes /> : <FaBars />}
@@ -146,7 +157,7 @@ const Navbar = () => {
       </nav>
 
       {open && (
-        <div className="lg:hidden border-t border-[#ececec] dark:border-[#2f3a50] bg-white/95 dark:bg-[#131a27]/95 backdrop-blur">
+        <nav id="menu-movil" aria-label="Navegación móvil" className="lg:hidden border-t border-[#ececec] dark:border-[#2f3a50] bg-white/95 dark:bg-[#131a27]/95 backdrop-blur">
           <ul className="section-shell py-4 grid gap-1">
             <li className="pb-2">
               <div className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl border border-[#ececec] dark:border-[#2f3a50] text-sm text-[#333] dark:text-gray-200">
@@ -157,23 +168,21 @@ const Navbar = () => {
 
             {links.map((item) => (
               <li key={item.to}>
-                <Link
-                  to={item.to}
-                  duration={700}
-                  smooth="easeInOutCubic"
-                  offset={item.to === 'contacto' ? -8 : -72}
+                <a
+                  href={`#${item.to}`}
+                  aria-current={activeSection === item.to ? 'location' : undefined}
                   onClick={() => {
                     setActiveSection(item.to);
                     setOpen(false);
                   }}
                   className={`block py-2.5 px-3 text-sm rounded-xl transition cursor-pointer ${
                     activeSection === item.to
-                      ? 'text-primary bg-primary/10'
-                      : 'text-[#333] dark:text-gray-200 hover:text-primary hover:bg-primary/10'
+                      ? 'text-primary-ink dark:text-primary-light bg-primary/10'
+                      : 'text-[#333] dark:text-gray-200 hover:text-primary-ink dark:hover:text-primary-light hover:bg-primary/10'
                   }`}
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             ))}
 
@@ -181,14 +190,14 @@ const Navbar = () => {
               <a
                 href="./cv.pdf"
                 download
-                className="h-11 rounded-xl bg-[#1f1f1f] dark:bg-primary text-white text-sm font-semibold inline-flex items-center justify-center gap-2 w-full"
+                className="h-11 rounded-xl bg-[#1f1f1f] dark:bg-primary text-white dark:text-secondary text-sm font-semibold inline-flex items-center justify-center gap-2 w-full"
               >
                 <FaFileDownload />
                 Descargar CV
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
       )}
     </header>
   );

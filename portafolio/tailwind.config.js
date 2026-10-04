@@ -8,6 +8,7 @@ module.exports = {
           DEFAULT: '#EA6D73',
           light: '#F4878C',
           dark: '#D85C62',
+          ink: '#A52E3B',
         },
         secondary: '#0F172A',
         surface: '#25222D',

@@ -9,6 +9,10 @@
     scroll-behavior: smooth;
   }
 
+  section[id], footer[id], main[id] {
+    scroll-margin-top: 6rem;
+  }
+
   body {
     @apply bg-[#f1f1f1] text-[#202124] dark:bg-[#0f1117] dark:text-[#e5e7eb] font-sans antialiased transition-colors duration-300;
   }
@@ -65,8 +69,29 @@
 }
 
 :focus-visible {
-  outline: 2px solid #ea6d73;
+  outline: 2px solid #a52e3b;
   outline-offset: 2px;
+}
+
+.dark :focus-visible, .section-dark :focus-visible {
+  outline-color: #f4878c;
+}
+
+.contact-form :focus-visible {
+  outline-color: #a52e3b;
+}
+
+.skip-link {
+  @apply fixed left-4 top-4 z-[200] rounded-lg bg-white px-4 py-3 font-semibold text-primary-ink shadow-lg;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.project-dialog::backdrop {
+  background: rgb(0 0 0 / 80%);
 }
 
 @media (prefers-reduced-motion: reduce) {
